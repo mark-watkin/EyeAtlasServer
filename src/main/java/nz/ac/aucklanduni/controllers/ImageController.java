@@ -15,18 +15,15 @@ public class ImageController {
     }
 
     @RequestMapping(value = { "/rest/image" }, method = RequestMethod.POST)
-//    public void postImage(@PathVariable("id") int id) {
-//
-//    }
     public @ResponseBody String postImage(@RequestParam("file") MultipartFile file){
         if (!file.isEmpty()) {
             try {
-                return "You successfully uploaded !";
+                return "redirect:success";
             } catch (Exception e) {
-                return "You failed to upload  => " + e.getMessage();
+                return "redirect:failed";
             }
         } else {
-            return "You failed to upload because the file was empty.";
+            return "redirect:failed";
         }
     }
 
