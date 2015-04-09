@@ -10,23 +10,30 @@ import java.util.logging.Logger;
 
 public class ImageUtilities {
 
-    /**
-     * Resize an image based on percentage.
-     *
-     * @param filePath path of file
-     * @param percentage percentage scale of image
-     * @throws IOException
-     */
-    public static void resizeImage(String filePath, int percentage) throws IOException {
 
-        File file = new File(filePath);
+    public static void resizeImage(String inputFilePath, String outputPath, int percentage) throws IOException {
+
+        File file = new File(inputFilePath);
         FileInputStream fis = new FileInputStream(file);
         BufferedImage originalImage = ImageIO.read(fis); //reading the image file
 
         final int IMG_WIDTH = originalImage.getWidth() * percentage / 100;
         final int IMG_HEIGHT = originalImage.getHeight() * percentage / 100;
 
-        BufferedImage resizedImage = new BufferedImage(IMG_WIDTH, IMG_HEIGHT, originalImage.getType());
+        resizeImage(originalImage, outputPath, IMG_WIDTH, IMG_HEIGHT, percentage);
+
+    }
+
+    /**
+     * Resize an image based on specified width and height
+     *
+     * @param originalImage original image path
+     * @param width width of new image
+     * @param height height of new image
+     * @throws IOException
+     */
+    private static void resizeImage(BufferedImage originalImage, String outputPath, int width, int height, int percentage) throws IOException {
+        BufferedImage resizedImage = new BufferedImage(width, height, originalImage.getType());
 
         Graphics2D g = resizedImage.createGraphics();
         g.setComposite(AlphaComposite.Src);
@@ -34,26 +41,24 @@ public class ImageUtilities {
         g.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g.drawImage(originalImage, 0, 0, IMG_WIDTH, IMG_HEIGHT, null);
+        g.drawImage(originalImage, 0, 0, width, height, null);
+
+        ImageIO.write(resizedImage, "png", new File(outputPath + percentage + ".png"));
+
         g.dispose();
 
-    }
 
+
+    }
 
     /**
-     * Resize an image based on specified width and height
      *
-     * @param filePath path of file
-     * @param width width of new image
-     * @param height height of new image
-     * @param aspectRatio maintains aspect ratio based on width
+     * @param inputFilePath
+     * @param outputPath
+     * @param tileWidth
+     * @param tileHeight
      * @throws IOException
      */
-    public static void resizeImage(String filePath, int width, int height, boolean aspectRatio) throws IOException {
-        // TODO
-
-    }
-
     public static void splitImageBySize(String inputFilePath, String outputPath, int tileWidth, int tileHeight) throws IOException {
         File file = new File(inputFilePath);
         FileInputStream fis = new FileInputStream(file);
@@ -102,20 +107,6 @@ public class ImageUtilities {
                 ImageIO.write(imgs[x * cols + y], "png", new File(outputPath + "img_" + y + "_" + x + ".png"));
             }
         }
-    }
-
-    /**
-     * Split image based on fixed tile dimension
-     *
-     * @param filePath path of file
-     * @param tileWidth fixed chunk width
-     * @param tileHeight fixed chunk height
-     * @throws IOException
-     */
-    public static void splitImageBySize(String filePath, int tileWidth, int tileHeight) throws IOException {
-
-        splitImageBySize(filePath, "", tileWidth, tileHeight);
-
     }
 
     /**
