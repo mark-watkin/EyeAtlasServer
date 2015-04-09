@@ -41,3 +41,6 @@ proguard/
 
 # Test output
 out/
+
+# Heroku tmp folder
+/tmp/

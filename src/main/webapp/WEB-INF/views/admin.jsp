@@ -2,16 +2,67 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="http://malsup.github.com/jquery.form.js"></script>
-        <script src="<c:url value='/resources/js/upload.js' />"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" async></script>
+        <script src="http://malsup.github.com/jquery.form.js" async></script>
+
+        <script src="<c:url value='/resources/js/upload.js' />" async></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <h2>Hello World!</h2>
-        <form id="upload-form" action="/rest/image" method="post" enctype="multipart/form-data">
-            Select image to upload:
-            <input type="file" name="file" id="file">
-            <input id="upload-button" type="button" value="Upload Image" name="submit">
-        </form>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="javascript:void(0)">Eye Atlas</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Welcome to Eye Atlas!</h1>
+                <p>Use the catalog to determine an entries id</p>
+                <p><a class="btn btn-success btn-lg" href="javascript:void(0)" role="button">Image Catalog »</a></p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Upload</h2>
+                    <form id="upload-form" action="/rest/image" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="file"></br>
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" placeholder="Image Name">
+                        </div>
+                    </form>
+                    <a class="btn btn-info" id="upload-button" href="javascript:void(0)" role="button">Upload Image &raquo;</a>
+                </div>
+                <div class="col-md-4">
+                    <h2>Replace</h2>
+                    <form id="replace-form" action="/rest/image" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" id="file"></br>
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" placeholder="Image id">
+                        </div>
+                    </form>
+                    <a class="btn btn-warning" id="replace-button" href="javascript:void(0)" role="button">Replace Image &raquo;</a>
+                </div>
+                <div class="col-md-4">
+                    <h2>Delete</h2>
+                    <form id="delete-form" action="/rest/image" method="post" enctype="multipart/form-data">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" placeholder="Image id">
+                        </div>
+                    </form>
+                    <a class="btn btn-danger" id="delete-button" href="javascript:void(0)" role="button">Delete Image &raquo;</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

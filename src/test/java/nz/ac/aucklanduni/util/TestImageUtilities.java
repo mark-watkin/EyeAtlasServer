@@ -9,7 +9,6 @@ import java.io.IOException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.testng.FileAssert.fail;
 
 public class TestImageUtilities {
 
