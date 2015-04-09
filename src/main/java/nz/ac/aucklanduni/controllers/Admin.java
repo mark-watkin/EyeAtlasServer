@@ -17,18 +17,4 @@ public class Admin {
         return model;
     }
 
-    @RequestMapping(value = { "/failed" }, method = RequestMethod.GET)
-    public ModelAndView uplodFailed() {
-        ModelAndView model = new ModelAndView();
-        model.setViewName("failedUpload");
-        return model;
-    }
-
-    @RequestMapping(value = { "/success" }, method = RequestMethod.GET)
-    public ModelAndView uploadSuccess() {
-        ModelAndView model = new ModelAndView();
-        model.setViewName("successfulUpload");
-        return model;
-    }
-
 }

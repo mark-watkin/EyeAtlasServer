@@ -38,3 +38,6 @@ proguard/
 
 # Log Files
 *.log
+
+# Test output
+out/

@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 @Controller
 public class ImageController {
@@ -18,12 +21,28 @@ public class ImageController {
     public @ResponseBody String postImage(@RequestParam("file") MultipartFile file){
         if (!file.isEmpty()) {
             try {
-                return "redirect:success";
+                byte[] bytes = file.getBytes();
+
+                // Creating the directory to store file
+                File dir = new File("tmp");
+                if (!dir.exists())
+                    dir.mkdirs();
+
+                // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()
+                        + File.separator + file.getOriginalFilename()); // Replace original filename with a unique ID.
+                BufferedOutputStream stream = new BufferedOutputStream(
+                        new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+
+
+                return "Success.";
             } catch (Exception e) {
-                return "redirect:failed";
+                return "Failed.";
             }
         } else {
-            return "redirect:failed";
+            return "Failed: No file selected.";
         }
     }
 
