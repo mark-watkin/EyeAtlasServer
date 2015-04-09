@@ -13,7 +13,7 @@ import java.io.IOException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class TestImageUtilities {
+public class TestImageResizer {
 
     private final String inputPath = "src/test/resources/tmp/";
     private final String inputFileName = "test_seal.jpg";
@@ -29,7 +29,7 @@ public class TestImageUtilities {
 
     @Test
     public void testResizeImage() throws Exception {
-        ImageUtilities.resizeImage(inputPath + inputFileName, outputPath, 50);
+        ImageResizer.resizeImage(inputPath + inputFileName, outputPath, 50);
 
         File file = new File(inputPath + inputFileName);
         FileInputStream fis = new FileInputStream(file);
@@ -43,15 +43,4 @@ public class TestImageUtilities {
         assertThat(originalImage.getHeight()/2, is(expectedImage.getHeight()));
     }
 
-//    @Test
-//    public void testSplitImageBySize() throws Exception {
-//
-//        System.out.println(System.getProperty("user.dir"));
-//        ImageUtilities.splitImageBySize(inputPath + inputFileName, outputPath, 150, 150);
-//
-//        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_0_3.png"), new File(outputPath + "img_0_3.png")), is(true));
-//        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_2_1.png"), new File(outputPath + "img_2_1.png")), is(true));
-//        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_3_1.png"), new File(outputPath + "img_3_1.png")), is(true));
-//        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_4_2.png"), new File(outputPath + "img_4_2.png")), is(true));
-//    }
 }

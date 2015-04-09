@@ -30,7 +30,7 @@ public class ImageController {
 
                 // Create the file on server
                 File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + file.getOriginalFilename()); // Replace original filename with a unique ID.
+                        + File.separator + file.getOriginalFilename()); // TODO Replace original filename with a unique ID.
                 BufferedOutputStream stream = new BufferedOutputStream(
                         new FileOutputStream(serverFile));
                 stream.write(bytes);
