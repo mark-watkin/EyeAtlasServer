@@ -108,6 +108,13 @@
             <version>2.4.1.1</version>
         </dependency>
 
+        <!-- Java Servlet Dependencies -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
     </dependencies>
 
 </project>
