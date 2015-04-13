@@ -35,7 +35,12 @@
                 <div class="col-md-12">
                     <h2>Create</h2>
                     <form id="upload-form" action="/rest/image" method="post" enctype="multipart/form-data">
-
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" placeholder="Category Name">
+                        </div>
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" placeholder="Category Parent">
+                        </div>
                     </form>
                     <a class="btn btn-info" id="upload-button" href="javascript:void(0)" role="button">Create Category &raquo;</a>
                 </div>
@@ -44,7 +49,9 @@
                 <div class="col-md-12">
                     <h2>Delete</h2>
                     <form id="delete-form" action="/rest/image" method="post" enctype="multipart/form-data">
-
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" placeholder="Category Name">
+                        </div>
                     </form>
                     <a class="btn btn-danger" id="delete-button" href="javascript:void(0)" role="button">Delete Category &raquo;</a>
                 </div>
