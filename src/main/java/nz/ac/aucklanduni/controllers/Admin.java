@@ -1,24 +1,38 @@
 package nz.ac.aucklanduni.controllers;
 
-import nz.ac.aucklanduni.dao.TagDao;
-import nz.ac.aucklanduni.dao.TagDaoImpl;
-import nz.ac.aucklanduni.model.Tag;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 public class Admin {
 
     @RequestMapping(value = { "/" }, method = RequestMethod.GET)
-    public ModelAndView entityAdmin() {
+    public ModelAndView landingPage() {
         ModelAndView model = new ModelAndView();
-        model.setViewName("admin");
+        model.setViewName("entity");
+        return model;
+    }
+
+    @RequestMapping(value = { "/entity" }, method = RequestMethod.GET)
+    public ModelAndView entity() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("entity");
+        return model;
+    }
+
+    @RequestMapping(value = { "/tag" }, method = RequestMethod.GET)
+    public ModelAndView tag() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("tag");
+        return model;
+    }
+
+    @RequestMapping(value = { "/category" }, method = RequestMethod.GET)
+    public ModelAndView category() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("category");
         return model;
     }
 }

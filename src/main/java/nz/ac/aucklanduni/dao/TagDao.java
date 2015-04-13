@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TagDao {
     public List<Tag> findAll();
+
+    public void save(Tag tagDto);
 }

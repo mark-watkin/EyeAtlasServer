@@ -3,6 +3,6 @@ $(document).ready(function () {
         url: "/rest/tags",
         method: "GET"
     }) .done(function() {
-        alert( "success" );
+
     })
 });

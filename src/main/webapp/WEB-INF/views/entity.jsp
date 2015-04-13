@@ -26,9 +26,7 @@
 
         <div class="jumbotron">
             <div class="container">
-                <h1>Welcome to Eye Atlas!</h1>
-                <p>Use the catalog to determine an entries id</p>
-                <p><a class="btn btn-success btn-lg" href="javascript:void(0)" role="button">Image Catalog »</a></p>
+                <h1>Add remove or update entries</h1>
             </div>
         </div>
 

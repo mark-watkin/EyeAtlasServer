@@ -4,7 +4,6 @@ import nz.ac.aucklanduni.model.Tag;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository("TagDao")
@@ -14,11 +13,15 @@ public class TagDaoImpl implements TagDao {
 
     @Resource
     public void setSessionFactory( SessionFactory sessionFactory ) {
-        sessionFactory = sessionFactory;
+        this.sessionFactory = sessionFactory;
     }
 
-    @Transactional
     public List<Tag> findAll( ) {
-        return sessionFactory.getCurrentSession().createQuery("from tags t").list();
+        return sessionFactory.getCurrentSession().createQuery("from Tag t").list();
+    }
+
+    @Override
+    public void save(Tag tagDto) {
+        sessionFactory.getCurrentSession().save(tagDto);
     }
 }
