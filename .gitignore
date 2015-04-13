@@ -40,7 +40,7 @@ proguard/
 *.log
 
 # Test output
-out/*
+out/
 
 # Heroku tmp folder
-/tmp/*
+/tmp/

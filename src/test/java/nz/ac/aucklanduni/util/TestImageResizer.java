@@ -1,6 +1,7 @@
 package nz.ac.aucklanduni.util;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +25,20 @@ public class TestImageResizer {
 
     @Before
     public void setUp() throws IOException {
+        File outdir = new File(outputPath);
+
+        if(!outdir.exists()) {
+            outdir.mkdir();
+        } else if(!outdir.isDirectory()) {
+            outdir.delete();
+            outdir.mkdir();
+        }
+
+        FileUtils.cleanDirectory(outdir);
+    }
+
+    @After
+    public void tearDown() throws IOException {
         FileUtils.cleanDirectory(new File(outputPath));
     }
 
@@ -41,6 +56,8 @@ public class TestImageResizer {
 
         assertThat(originalImage.getWidth()/2, is(expectedImage.getWidth()));
         assertThat(originalImage.getHeight()/2, is(expectedImage.getHeight()));
+
+        fis.close();
     }
 
 }

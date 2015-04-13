@@ -1,6 +1,7 @@
 package nz.ac.aucklanduni.util;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,9 +25,22 @@ public class TestImageSplitter {
 
     @Before
     public void setUp() throws IOException {
-        FileUtils.cleanDirectory(new File(outputPath));
+        File outdir = new File(outputPath);
+
+        if(!outdir.exists()) {
+            outdir.mkdir();
+        } else if(!outdir.isDirectory()) {
+            outdir.delete();
+            outdir.mkdir();
+        }
+
+        FileUtils.cleanDirectory(outdir);
     }
 
+    @After
+    public void tearDown() throws IOException {
+        FileUtils.cleanDirectory(new File(outputPath));
+    }
 
     @Test
     public void testSplitImageBySize() throws Exception {
