@@ -6,6 +6,7 @@
         <script src="http://malsup.github.com/jquery.form.js" async></script>
 
         <script src="<c:url value='/resources/js/upload.js' />" async></script>
+        <script src="<c:url value='/resources/js/dynamicContent.js' />" async></script>
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -33,17 +34,22 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <h2>Upload</h2>
                     <form id="upload-form" action="/rest/image" method="post" enctype="multipart/form-data">
                         <input type="file" name="file" id="file"></br>
                         <div class="input-group input-group-lg">
-                            <input type="text" class="form-control" placeholder="Image Name">
+                            <input type="text" class="form-control" placeholder="Title">
                         </div>
+                        <textarea class="form-control" placeholder="Description" rows="3"></textarea>
+                        <h3>Tags</h3>
+                        <div class="tags"></div>
                     </form>
                     <a class="btn btn-info" id="upload-button" href="javascript:void(0)" role="button">Upload Image &raquo;</a>
                 </div>
-                <div class="col-md-4">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <h2>Replace</h2>
                     <form id="replace-form" action="/rest/image" method="post" enctype="multipart/form-data">
                         <input type="file" name="file" id="file"></br>
@@ -53,7 +59,9 @@
                     </form>
                     <a class="btn btn-warning" id="replace-button" href="javascript:void(0)" role="button">Replace Image &raquo;</a>
                 </div>
-                <div class="col-md-4">
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <h2>Delete</h2>
                     <form id="delete-form" action="/rest/image" method="post" enctype="multipart/form-data">
                         <div class="input-group input-group-lg">
