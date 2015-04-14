@@ -14,7 +14,7 @@ CREATE TABLE entity (
 
 CREATE TABLE tags (
 	id SERIAL PRIMARY KEY,
-	name VARCHAR(100) NOT NULL
+	name VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE entity_tag (
@@ -25,7 +25,7 @@ CREATE TABLE entity_tag (
 
 CREATE TABLE category (
 	id SERIAL PRIMARY KEY,
-	name VARCHAR(100) NOT NULL
+	name VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE entity_category (
