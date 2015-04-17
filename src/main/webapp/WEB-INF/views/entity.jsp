@@ -5,7 +5,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" async></script>
         <script src="http://malsup.github.com/jquery.form.js" async></script>
 
-        <script src="<c:url value='/resources/js/upload.js' />" async></script>
+        <script src="<c:url value='/resources/js/entity.js' />" async></script>
         <script src="<c:url value='/resources/js/dynamicContent.js' />" async></script>
 
         <!-- Latest compiled and minified CSS -->
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Upload</h2>
-                    <form id="upload-form" action="/rest/image" method="post" enctype="multipart/form-data">
+                    <form id="upload-form">
                         <input type="file" name="file" id="file"></br>
                         <div class="input-group input-group-lg">
                             <input type="text" class="form-control" placeholder="Title">
@@ -49,7 +49,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Replace</h2>
-                    <form id="replace-form" action="/rest/image" method="post" enctype="multipart/form-data">
+                    <form id="replace-form">
                         <input type="file" name="file" id="file"></br>
                         <div class="input-group input-group-lg">
                             <input type="text" class="form-control" placeholder="Image id">
@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Delete</h2>
-                    <form id="delete-form" action="/rest/image" method="post" enctype="multipart/form-data">
+                    <form id="delete-form">
                         <div class="input-group input-group-lg">
                             <input type="text" class="form-control" placeholder="Image id">
                         </div>

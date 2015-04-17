@@ -8,4 +8,8 @@ public interface TagDao {
     public List<Tag> findAll();
 
     public void save(Tag tagDto);
+
+    Tag find(String name);
+
+    void delete(Tag tagDto);
 }
