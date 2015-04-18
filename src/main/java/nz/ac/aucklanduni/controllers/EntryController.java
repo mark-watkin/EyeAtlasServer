@@ -1,17 +1,14 @@
 package nz.ac.aucklanduni.controllers;
 
+import nz.ac.aucklanduni.model.EntityUpload;
 import nz.ac.aucklanduni.model.Entry;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/rest/entry")
 public class EntryController {
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/entry", method = RequestMethod.GET)
     public @ResponseBody Entry getEntry(@PathVariable("id") int id) {
         //temporary testing
         Entry entryTemp = new Entry();
@@ -20,14 +17,13 @@ public class EntryController {
         return entryTemp;
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public void putEntry(@PathVariable("id") int id) {
+    @RequestMapping(value = "/rest/entry", method = RequestMethod.POST)
+    public void entryUpload(@RequestBody EntityUpload entityUpload) {
 
     }
 
-
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public void deleteEntry(@PathVariable("id") int id) {
+    @RequestMapping(value = "/rest/entry/{name}", method = RequestMethod.DELETE)
+    public void deleteEntry(@PathVariable("name") String name) {
 
     }
 
