@@ -12,6 +12,7 @@ public class UploadManager {
     public void uplaod(MultipartFile file) throws IOException {
         String path = setUpFolderStucture();
         writeImageToTempStorage(file, path);
+
         cleanUp(path);
     }
 
@@ -21,6 +22,7 @@ public class UploadManager {
         //TODO create folder with name id that can be easly cleaned
         if (!dir.exists())
             dir.mkdirs();
+
         return null;
     }
 

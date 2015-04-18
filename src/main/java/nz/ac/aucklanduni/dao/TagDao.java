@@ -9,7 +9,7 @@ public interface TagDao {
 
     public void save(Tag tagDto);
 
-    Tag find(String name);
+    public Tag find(String name);
 
-    void delete(Tag tagDto);
+    public void delete(Tag tagDto);
 }

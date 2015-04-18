@@ -67,9 +67,10 @@
             </props>
         </property>
 
-        <property name="mappingResources">
+        <property name="annotatedClasses">
             <list>
-                <value>mapping/tag.hbm.xml</value>
+                <value>nz.ac.aucklanduni.model.Tag</value>
+                <value>nz.ac.aucklanduni.model.Category</value>
             </list>
         </property>
 
