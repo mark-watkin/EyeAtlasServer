@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var getTemplate,
         tagTemplate,
+        getValues,
         base64;
 
     Handlebars.registerHelper("fourth", function(count, block) {
@@ -30,6 +31,14 @@ $(document).ready(function () {
         }
     }
 
+    getValues = function(elements) {
+        var selected = [];
+        elements.each(function() {
+            selected.push($(this).val());
+        });
+        return selected;
+    }
+
     $("#file").change(function(){
         base64(this);
     });
@@ -56,10 +65,13 @@ $(document).ready(function () {
     $('#upload-button').click(function () {
         var entityUpload = {
             name: $('#upload-form .entity-name').val(),
-            category: $("input[type='radio'][name='category']:checked"),
-            tags: $("input[type='checkbox']:checked"),
+            description: $('#upload-form .entity-description').val(),
+            category: $("input[type='radio'][name='category']:checked").val(),
+            tags: getValues($("input[type='checkbox']:checked")),
             image: $('#prev').attr('src')
         };
+
+        console.log(entityUpload);
 
         $.ajax({
             url: '/rest/infoentity',

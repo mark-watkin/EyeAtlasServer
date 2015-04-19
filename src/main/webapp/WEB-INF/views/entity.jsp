@@ -38,7 +38,7 @@
                         <div class="input-group input-group-lg">
                             <input type="text" class="form-control entity-name" placeholder="Title">
                         </div>
-                        <textarea class="form-control" placeholder="Description" rows="3"></textarea>
+                        <textarea class="form-control entity-description" placeholder="Description" rows="3"></textarea>
                         <div id="tags"></div>
                         <h3>Categories</h3>
                         <div id="category"></div>

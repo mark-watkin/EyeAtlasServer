@@ -20,8 +20,8 @@ public class InfoEntityController {
     }
 
     @RequestMapping(value = "/rest/infoentity", method = RequestMethod.POST)
-    public void infoEntityUpload(@RequestBody InfoEntityUpload infoEntityUpload) {
-
+    public String infoEntityUpload(@RequestBody InfoEntityUpload infoEntityUpload) {
+        return infoEntityUpload.toString();
     }
 
     @RequestMapping(value = "/rest/infoentity/{name}", method = RequestMethod.DELETE)
