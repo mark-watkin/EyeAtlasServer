@@ -1,10 +1,12 @@
-package nz.ac.aucklanduni.dao;
+package nz.ac.aucklanduni.service;
 
 import nz.ac.aucklanduni.model.InfoEntity;
 
 import java.util.List;
 
-public interface InfoEntityDao {
+public interface InfoEntityService {
+
+    public String createInfoEntity(InfoEntity infoEntity);
 
     public List<InfoEntity> findAll();
 

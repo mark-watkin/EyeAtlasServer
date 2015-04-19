@@ -3,11 +3,12 @@ package nz.ac.aucklanduni.dao;
 import nz.ac.aucklanduni.model.InfoEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-
+@Repository("InfoEntityDao")
 public class InfoEntityDaoImpl implements InfoEntityDao {
 
     private SessionFactory sessionFactory;
@@ -48,6 +49,11 @@ public class InfoEntityDaoImpl implements InfoEntityDao {
     @Override
     public void delete(Integer id) {
         this.sessionFactory.getCurrentSession().delete(find(id));
+    }
+
+    @Override
+    public void delete(String title) {
+        this.sessionFactory.getCurrentSession().delete(find(title));
     }
 
     @Override

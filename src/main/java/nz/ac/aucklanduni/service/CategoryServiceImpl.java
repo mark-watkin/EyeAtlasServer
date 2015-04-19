@@ -60,6 +60,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public Category find(Integer id) { return categoryDao.find(id); }
+
+    @Override
     @Transactional(propagation= Propagation.REQUIRED)
     public void delete(Category category) {
         categoryDao.delete(category);

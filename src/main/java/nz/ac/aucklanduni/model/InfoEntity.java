@@ -1,6 +1,7 @@
 package nz.ac.aucklanduni.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ public class InfoEntity {
     private String title;
     private String description;
     private Category category;
-    private Set<Tag> tags;
+    private Set<Tag> tags = new HashSet<Tag>();
 
     @Id
     @Column(name = "id")
@@ -41,13 +42,8 @@ public class InfoEntity {
 
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-        name = "entity_category",
-        joinColumns = @JoinColumn(name = "E_id"),
-        inverseJoinColumns = @JoinColumn(name = "C_id"))
-    public Category getCategory() {
-        return category;
-    }
+    @JoinColumn(name = "category")
+    public Category getCategory() { return category; }
 
     public void setCategory(Category category) {
         this.category = category;
@@ -55,7 +51,7 @@ public class InfoEntity {
 
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "entity_tags",
+    @JoinTable(name = "entity_tag",
             joinColumns = @JoinColumn(name = "E_id", nullable = false, updatable = false) ,
             inverseJoinColumns =  @JoinColumn(name = "T_id", nullable = false, updatable = false) )
     public Set<Tag> getTags() {
@@ -64,5 +60,10 @@ public class InfoEntity {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String toString() {
+        return "{ id: " + id + ", title: " + title + ", desc :" + description + ", category :" + category
+                + ", tags :" + tags + " }";
     }
 }

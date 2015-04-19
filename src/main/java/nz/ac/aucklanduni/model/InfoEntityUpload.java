@@ -4,33 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InfoEntityUpload {
-    private String name;
-    private String description;
-    private String category;
-    private List<String> tags = new ArrayList<String>();
+
+    private InfoEntity infoEntity;
+
+    private Integer category;
+    private List<Integer> tags = new ArrayList<Integer>();
     private String image;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public InfoEntity getInfoEntity() { return infoEntity; }
 
-    public String getCategory() {
+    public void setInfoEntity(InfoEntity infoEntity) { this.infoEntity = infoEntity; }
+
+    public Integer getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 
-    public List<String> getTags() {
-        return tags;
-    }
+    public List<Integer> getTags() { return tags; }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<Integer> tags) {
         this.tags = tags;
     }
 
@@ -44,14 +40,7 @@ public class InfoEntityUpload {
 
     @Override
     public String toString() {
-        return "{ name: " + name + ", category: " + category + ", tags: " + tags + " }";
+        return "{ infoEntity: " + infoEntity.toString() + ", category: " + category + ", tags: " + tags + " }";
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

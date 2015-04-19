@@ -63,21 +63,23 @@ $(document).ready(function () {
     });
 
     $('#upload-button').click(function () {
-        var entityUpload = {
-            name: $('#upload-form .entity-name').val(),
-            description: $('#upload-form .entity-description').val(),
+        var infoEntityUpload = {
+
+            infoEntity: {
+                title: $('#upload-form .entity-name').val(),
+                description: $('#upload-form .entity-description').val()
+            },
+
             category: $("input[type='radio'][name='category']:checked").val(),
             tags: getValues($("input[type='checkbox']:checked")),
             image: $('#prev').attr('src')
         };
 
-        console.log(entityUpload);
-
         $.ajax({
             url: '/rest/infoentity',
             type: 'POST',
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(entityUpload),
+            data: JSON.stringify(infoEntityUpload),
             success: function(data) {
                 alert(data);
             },

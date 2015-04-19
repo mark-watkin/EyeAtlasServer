@@ -1,12 +1,30 @@
 package nz.ac.aucklanduni.controllers;
 
+import nz.ac.aucklanduni.dao.TagDao;
 import nz.ac.aucklanduni.model.InfoEntityUpload;
 import nz.ac.aucklanduni.model.InfoEntity;
+import nz.ac.aucklanduni.model.Tag;
+import nz.ac.aucklanduni.service.CategoryService;
+import nz.ac.aucklanduni.service.InfoEntityService;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.HashSet;
+import java.util.Set;
+
+@RestController
 public class InfoEntityController {
+
+    @Autowired
+    private InfoEntityService infoEntityService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private TagDao tagDao;
 
     @RequestMapping(value = "/rest/infoentity", method = RequestMethod.GET)
     public @ResponseBody
@@ -21,7 +39,28 @@ public class InfoEntityController {
 
     @RequestMapping(value = "/rest/infoentity", method = RequestMethod.POST)
     public String infoEntityUpload(@RequestBody InfoEntityUpload infoEntityUpload) {
-        return infoEntityUpload.toString();
+
+        if (infoEntityUpload.getCategory() == null) {
+            return "The Entity name must have a category!";
+        }
+        try {
+
+            InfoEntity infoEntity = infoEntityUpload.getInfoEntity();
+            infoEntity.setCategory(categoryService.find(infoEntityUpload.getCategory()));
+
+            Set<Tag> tagSet = new HashSet<Tag>();
+            for(Integer i : infoEntityUpload.getTags()) {
+                tagSet.add(tagDao.find(i));
+            }
+
+            infoEntity.setTags(tagSet);
+
+            return infoEntityService.createInfoEntity(infoEntity);
+
+        } catch (ConstraintViolationException e) {
+            e.printStackTrace();
+            return "Error creating InfoEntity!";
+        }
     }
 
     @RequestMapping(value = "/rest/infoentity/{name}", method = RequestMethod.DELETE)

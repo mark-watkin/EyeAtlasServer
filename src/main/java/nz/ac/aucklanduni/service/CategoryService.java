@@ -20,5 +20,7 @@ public interface CategoryService {
 
     public Category find(String name);
 
+    public Category find(Integer id);
+
     public void delete(Category category);
 }

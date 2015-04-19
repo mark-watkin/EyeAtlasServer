@@ -11,5 +11,7 @@ public interface TagDao {
 
     public Tag find(String name);
 
+    public Tag find(Integer id);
+
     public void delete(Tag tagDto);
 }
