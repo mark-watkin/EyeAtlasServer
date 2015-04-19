@@ -15,10 +15,10 @@ public class Admin {
         return model;
     }
 
-    @RequestMapping(value = { "/entity" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/infoentity" }, method = RequestMethod.GET)
     public ModelAndView entity() {
         ModelAndView model = new ModelAndView();
-        model.setViewName("entity");
+        model.setViewName("infoentity");
         return model;
     }
 

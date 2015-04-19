@@ -71,6 +71,7 @@
             <list>
                 <value>nz.ac.aucklanduni.model.Tag</value>
                 <value>nz.ac.aucklanduni.model.Category</value>
+                <value>nz.ac.aucklanduni.model.InfoEntity</value>
             </list>
         </property>
 

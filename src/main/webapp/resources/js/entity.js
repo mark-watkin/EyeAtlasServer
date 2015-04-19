@@ -62,7 +62,7 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: '/rest/entity',
+            url: '/rest/infoentity',
             type: 'POST',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(entityUpload),

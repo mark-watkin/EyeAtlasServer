@@ -5,7 +5,6 @@
 
 \c eye_atlas
 
-DROP TABLE category_subcategory;
 DROP TABLE entity_category;
 DROP TABLE entity_tag;
 DROP TABLE image;
