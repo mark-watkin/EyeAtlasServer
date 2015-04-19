@@ -5,10 +5,10 @@ import nz.ac.aucklanduni.model.Entry;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class EntryController {
 
-    @RequestMapping(value = "/rest/entry", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/entity", method = RequestMethod.GET)
     public @ResponseBody Entry getEntry(@PathVariable("id") int id) {
         //temporary testing
         Entry entryTemp = new Entry();
@@ -17,12 +17,12 @@ public class EntryController {
         return entryTemp;
     }
 
-    @RequestMapping(value = "/rest/entry", method = RequestMethod.POST)
-    public void entryUpload(@RequestBody EntityUpload entityUpload) {
-
+    @RequestMapping(value = "/rest/entity", method = RequestMethod.POST)
+    public String entryUpload(@RequestBody EntityUpload entityUpload) {
+        return entityUpload.toString();
     }
 
-    @RequestMapping(value = "/rest/entry/{name}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/rest/entity/{name}", method = RequestMethod.DELETE)
     public void deleteEntry(@PathVariable("name") String name) {
 
     }
