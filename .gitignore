@@ -38,3 +38,9 @@ proguard/
 
 # Log Files
 *.log
+
+# Test output
+out/
+
+# Heroku tmp folder
+/tmp/
