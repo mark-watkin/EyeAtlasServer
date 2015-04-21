@@ -62,6 +62,7 @@ public class InfoEntity {
         this.tags = tags;
     }
 
+    @Override
     public String toString() {
         return "{ id: " + id + ", title: " + title + ", desc :" + description + ", category :" + category
                 + ", tags :" + tags + " }";

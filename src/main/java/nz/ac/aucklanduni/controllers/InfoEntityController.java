@@ -59,7 +59,7 @@ public class InfoEntityController {
 
         } catch (ConstraintViolationException e) {
             e.printStackTrace();
-            return "Error creating InfoEntity!";
+            return "An entity with name " + infoEntityUpload.getInfoEntity().getTitle() + " has already been defined!";
         }
     }
 
