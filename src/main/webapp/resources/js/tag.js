@@ -5,7 +5,7 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: '/rest/tags',
+            url: '/rest/tag',
             type: 'post',
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(tag),
@@ -26,7 +26,7 @@ $(document).ready(function () {
             };
 
             $.ajax({
-                url: '/rest/tags/' + tag.name,
+                url: '/rest/tag/' + tag.name,
                 type: 'delete',
                 success: function (data) {
                     alert(data);

@@ -35,11 +35,6 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public Tag find(Integer id) {
-        return (Tag) sessionFactory.getCurrentSession().createCriteria(Tag.class).add(Restrictions.eq("id", id)).uniqueResult();
-    }
-
-    @Override
     public void delete(Tag tagDto) {
         sessionFactory.getCurrentSession().delete(tagDto);
     }

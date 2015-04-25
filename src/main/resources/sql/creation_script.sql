@@ -7,38 +7,34 @@ CREATE DATABASE eye_atlas;
 \c eye_atlas
 
 CREATE TABLE category (
-	id SERIAL,
 	name VARCHAR(100) UNIQUE NOT NULL,
-	parent INTEGER REFERENCES category(id),
-	PRIMARY KEY (id)
+	parent VARCHAR(100) REFERENCES category(name),
+	PRIMARY KEY (name)
 );
 
 CREATE TABLE tags (
-	id SERIAL,
 	name VARCHAR(100) UNIQUE NOT NULL,
-	PRIMARY KEY (id)
+	PRIMARY KEY (name)
 );
 
-CREATE TABLE entity (
-	id SERIAL,
+CREATE TABLE condition (
 	title VARCHAR(100) UNIQUE NOT NULL,
 	description VARCHAR(500) NOT NULL,
-	category INTEGER REFERENCES category(id),
-	PRIMARY KEY (id)
+	category VARCHAR(100) REFERENCES category(name),
+	PRIMARY KEY (title)
 );
 
-CREATE TABLE entity_tag (
-	E_id INTEGER REFERENCES entity(id),
-	T_id INTEGER REFERENCES tags(id),
-	PRIMARY KEY (E_id, T_id)
+CREATE TABLE condition_tag (
+	C_id VARCHAR(100) REFERENCES condition(title),
+	T_id VARCHAR(100) REFERENCES tags(name),
+	PRIMARY KEY (C_id, T_id)
 );
 
 CREATE TABLE image (
-	id SERIAL,
 	resolution INTEGER NOT NULL,
 	column_count INTEGER NOT NULL,
 	row_count INTEGER NOT NULL,
-	E_id INTEGER REFERENCES entity(id),
-	PRIMARY KEY (id)
+	C_id VARCHAR(100) REFERENCES condition(title),
+	PRIMARY KEY (resolution, C_id)
 );
 

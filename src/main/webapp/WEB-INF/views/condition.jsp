@@ -4,7 +4,7 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" defer></script>
         <script src="<c:url value='/resources/js/handlebars.js'/>" defer></script>
-        <script src="<c:url value='/resources/js/entity.js'/>" defer></script>
+        <script src="<c:url value='/resources/js/condition.js'/>" defer></script>
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">

@@ -7,7 +7,7 @@
     {{/fourth}}
         <div class="col-md-3">
             <label>
-                <input type="checkbox" value="{{id}}"> {{name}}
+                <input type="checkbox" value="{{name}}"> {{name}}
             </label>
         </div>
 {{/each}}

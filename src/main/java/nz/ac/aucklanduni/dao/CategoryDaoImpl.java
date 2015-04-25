@@ -25,11 +25,6 @@ public class CategoryDaoImpl implements CategoryDao {
     }
 
     @Override
-    public Category find(Integer id) {
-        return (Category) sessionFactory.getCurrentSession().createCriteria(Category.class).add(Restrictions.eq("id", id)).uniqueResult();
-    }
-
-    @Override
     public void delete(Category category) {
         sessionFactory.getCurrentSession().delete(category);
     }

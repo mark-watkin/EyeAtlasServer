@@ -6,26 +6,15 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "entity")
-public class InfoEntity {
+@Table(name = "condition")
+public class Condition {
 
-    private long id;
     private String title;
     private String description;
     private Category category;
     private Set<Tag> tags = new HashSet<Tag>();
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     @Column(name = "title")
     public String getTitle() {
         return title;
@@ -51,8 +40,8 @@ public class InfoEntity {
 
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "entity_tag",
-            joinColumns = @JoinColumn(name = "E_id", nullable = false, updatable = false) ,
+    @JoinTable(name = "condition_tag",
+            joinColumns = @JoinColumn(name = "C_id", nullable = false, updatable = false) ,
             inverseJoinColumns =  @JoinColumn(name = "T_id", nullable = false, updatable = false) )
     public Set<Tag> getTags() {
         return tags;
@@ -64,7 +53,7 @@ public class InfoEntity {
 
     @Override
     public String toString() {
-        return "{ id: " + id + ", title: " + title + ", desc :" + description + ", category :" + category
+        return "{ title: " + title + ", desc :" + description + ", category :" + category
                 + ", tags :" + tags + " }";
     }
 }

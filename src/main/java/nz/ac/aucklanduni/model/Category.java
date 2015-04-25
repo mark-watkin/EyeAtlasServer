@@ -16,6 +16,7 @@ public class Category {
     private Category parent;
     private List<Category> children = new ArrayList<Category>();
 
+    @Id
     @Column(name = "name")
     public String getName() {
         return name;
@@ -24,18 +25,6 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
 
     @Override
     public String toString() {

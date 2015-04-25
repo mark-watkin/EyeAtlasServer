@@ -14,12 +14,12 @@ public class TagController {
     @Autowired
     private TagDao tagDao;
 
-    @RequestMapping(value = {"/rest/tags"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/rest/tag"}, method = RequestMethod.GET)
     public List<Tag> tagResolver() {
         return tagDao.findAll();
     }
 
-    @RequestMapping(value = {"/rest/tags"}, method = RequestMethod.POST, headers = {"content-type=application/json"})
+    @RequestMapping(value = {"/rest/tag"}, method = RequestMethod.POST, headers = {"content-type=application/json"})
     public String tagUpload(@RequestBody Tag tagDto) {
         if (tagDto.getName() == null || tagDto.getName().equals("")) {
             return "The tag name must not be empty!";
@@ -33,12 +33,12 @@ public class TagController {
         }
     }
 
-    @RequestMapping(value = {"/rest/tags/"}, method = RequestMethod.DELETE)
+    @RequestMapping(value = {"/rest/tag/"}, method = RequestMethod.DELETE)
     public String tagDelete() {
         return "The tag name must not be empty!";
     }
 
-    @RequestMapping(value = {"/rest/tags/{name}"}, method = RequestMethod.DELETE)
+    @RequestMapping(value = {"/rest/tag/{name}"}, method = RequestMethod.DELETE)
     public String tagDelete(@PathVariable("name") String name) {
         try {
             Tag tag = tagDao.find(name);
