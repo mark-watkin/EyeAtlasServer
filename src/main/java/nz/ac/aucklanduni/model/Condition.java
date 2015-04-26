@@ -35,7 +35,7 @@ public class Condition {
     public void setDescription(String description) { this.description = description; }
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category")
     public Category getCategory() { return category; }
 
@@ -44,7 +44,7 @@ public class Condition {
     }
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "condition_tag",
             joinColumns = @JoinColumn(name = "C_id", nullable = false, updatable = false) ,
             inverseJoinColumns =  @JoinColumn(name = "T_id", nullable = false, updatable = false) )

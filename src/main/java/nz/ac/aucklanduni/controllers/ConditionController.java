@@ -27,11 +27,7 @@ public class ConditionController {
     @RequestMapping(value = "/rest/condition/{title}", method = RequestMethod.GET)
     public @ResponseBody
     Condition getCondition(@PathVariable("title") String title) {
-        //temporary testing
-        Condition conditionTemp = new Condition();
-        conditionTemp.setTitle("temp");
-        conditionTemp.setDescription("temp desc");
-        return conditionTemp;
+        return conditionService.find(title);
     }
 
     @RequestMapping(value = "/rest/condition", method = RequestMethod.POST)
