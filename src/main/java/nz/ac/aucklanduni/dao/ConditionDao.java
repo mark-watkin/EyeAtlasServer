@@ -12,7 +12,6 @@ public interface ConditionDao {
 
     public void save(Condition conditionDao);
 
-    public void delete(String title);
     public void delete(Condition conditionDto);
 
 }

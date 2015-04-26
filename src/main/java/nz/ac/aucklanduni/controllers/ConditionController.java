@@ -6,7 +6,6 @@ import nz.ac.aucklanduni.model.ConditionUpload;
 import nz.ac.aucklanduni.model.Tag;
 import nz.ac.aucklanduni.service.CategoryService;
 import nz.ac.aucklanduni.service.ConditionService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,33 +36,26 @@ public class ConditionController {
 
     @RequestMapping(value = "/rest/condition", method = RequestMethod.POST)
     public String conditionUpload(@RequestBody ConditionUpload conditionUpload) {
-
-        if (conditionUpload.getCategory() == null) {
-            return "The Entity name must have a category!";
+        if (conditionUpload.getCategory() == null || conditionUpload.getCategory().equals("")) {
+            return "The Condition must have a category!";
         }
-        try {
 
-            Condition condition = conditionUpload.getCondition();
-            condition.setCategory(categoryService.find(conditionUpload.getCategory()));
+        Condition condition = conditionUpload.getCondition();
+        condition.setCategory(categoryService.find(conditionUpload.getCategory()));
 
-            Set<Tag> tagSet = new HashSet<Tag>();
-            for(String name : conditionUpload.getTags()) {
-                tagSet.add(tagDao.find(name));
-            }
-
-            condition.setTags(tagSet);
-
-            return conditionService.createCondition(condition);
-
-        } catch (ConstraintViolationException e) {
-            e.printStackTrace();
-            return "An entity with name " + conditionUpload.getCondition().getTitle() + " has already been defined!";
+        Set<Tag> tagSet = new HashSet<Tag>();
+        for(String name : conditionUpload.getTags()) {
+            tagSet.add(tagDao.find(name));
         }
+
+        condition.setTags(tagSet);
+
+        return conditionService.createCondition(condition);
     }
 
     @RequestMapping(value = "/rest/condition/{name}", method = RequestMethod.DELETE)
-    public void conditionDelete(@PathVariable("name") String name) {
-
+    public String conditionDelete(@PathVariable("name") String name) {
+        return this.conditionService.delete(name);
     }
 
 }

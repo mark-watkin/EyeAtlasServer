@@ -38,11 +38,6 @@ public class ConditionDaoImpl implements ConditionDao {
     }
 
     @Override
-    public void delete(String title) {
-        this.sessionFactory.getCurrentSession().delete(find(title));
-    }
-
-    @Override
     public void delete(Condition conditionDto) {
         this.sessionFactory.getCurrentSession().delete(conditionDto);
     }

@@ -87,6 +87,28 @@ $(document).ready(function () {
                 alert(data);
             }
         });
+
+        $('#upload-form')[0].reset();
+        $('#prev').attr('src', '#');
     });
+
+    $('#delete-button').click(function () {
+            var category = {
+                name: $('#delete-form .condition-name').val()
+            };
+
+            $.ajax({
+                url: '/rest/condition/' + category.name,
+                type: 'delete',
+                success: function (data) {
+                    alert(data);
+                },
+                error: function(data) {
+                    alert(data);
+                }
+            });
+
+            name: $('#delete-form .condition-name').val("");
+        });
 });
 

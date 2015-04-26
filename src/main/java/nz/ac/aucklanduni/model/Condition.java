@@ -1,6 +1,11 @@
 package nz.ac.aucklanduni.model;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +35,7 @@ public class Condition {
     public void setDescription(String description) { this.description = description; }
 
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category")
     public Category getCategory() { return category; }
 
@@ -39,7 +44,7 @@ public class Condition {
     }
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "condition_tag",
             joinColumns = @JoinColumn(name = "C_id", nullable = false, updatable = false) ,
             inverseJoinColumns =  @JoinColumn(name = "T_id", nullable = false, updatable = false) )

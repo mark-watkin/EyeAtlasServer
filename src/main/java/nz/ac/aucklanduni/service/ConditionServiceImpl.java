@@ -2,6 +2,7 @@ package nz.ac.aucklanduni.service;
 
 import nz.ac.aucklanduni.dao.ConditionDao;
 import nz.ac.aucklanduni.model.Condition;
+import nz.ac.aucklanduni.model.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -40,19 +41,18 @@ public class ConditionServiceImpl implements ConditionService {
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
-    public void save(Condition ConditionDto) {
-        this.conditionDao.save(ConditionDto);
-    }
-
-    @Override
-    @Transactional(propagation= Propagation.REQUIRED)
-    public void delete(String title) {
-        this.conditionDao.delete(title);
+    public String delete(String title) {
+        Condition condition = this.conditionDao.find(title);
+        if (condition == null) {
+            return "Condition " + title + " does not exist in database";
+        }
+        this.conditionDao.delete(condition);
+        return "Condition was deleted successfully";
     }
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
     public void delete(Condition conditionDto) {
-        this.createCondition(conditionDto);
+        this.conditionDao.delete(conditionDto);
     }
 }

@@ -1,4 +1,3 @@
-<h3>Tags</h3>
 <div>
 {{#each this}}
     {{#fourth @index}}

@@ -12,9 +12,8 @@ public interface ConditionService {
 
     public Condition find(String title);
 
-    public void save(Condition conditionDto);
+    public String delete(String title);
 
-    public void delete(String title);
     public void delete(Condition conditionDto);
 
 }

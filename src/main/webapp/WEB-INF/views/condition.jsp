@@ -39,6 +39,7 @@
                             <input type="text" class="form-control entity-name" placeholder="Title">
                         </div>
                         <textarea class="form-control entity-description" placeholder="Description" rows="3"></textarea>
+                        <h3>Tags</h3>
                         <div id="tags"></div>
                         <h3>Categories</h3>
                         <div id="category"></div>
@@ -49,7 +50,7 @@
                     <h2>Delete</h2>
                     <form id="delete-form">
                         <div class="input-group input-group-lg">
-                            <input type="text" class="form-control" placeholder="Title">
+                            <input type="text" class="form-control condition-name" placeholder="Title">
                         </div>
                     </form>
                     <a class="btn btn-danger" id="delete-button" href="javascript:void(0)" role="button">Delete Image &raquo;</a>
