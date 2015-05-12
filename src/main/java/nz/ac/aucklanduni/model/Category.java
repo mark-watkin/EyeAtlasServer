@@ -43,6 +43,7 @@ public class Category {
     }
 
     @OneToMany(mappedBy="parent", fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @OrderBy("name")
     public List<Category> getChildren() {
         return children;
     }

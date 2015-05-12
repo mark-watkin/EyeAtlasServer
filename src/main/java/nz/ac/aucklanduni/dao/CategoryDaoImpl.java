@@ -36,6 +36,6 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public List findRoots() {
-        return sessionFactory.getCurrentSession().createQuery("from Category where parent = null").list();
+        return sessionFactory.getCurrentSession().createQuery("from Category where parent = null order by name").list();
     }
 }

@@ -1,4 +1,18 @@
 $(document).ready(function () {
+
+    var loadTags = function() {
+        getTemplate('template/tag_display', function (template) {
+            $.ajax({
+                url: '/rest/tag',
+                success: function(json) {
+                    $("#tags").html(template(json));
+                }
+            });
+        });
+    }
+
+    loadTags();
+
     $('#upload-button').click(function () {
         var tag = {
             name: $('#upload-form .tag-name').val()
@@ -11,6 +25,7 @@ $(document).ready(function () {
             data: JSON.stringify(tag),
             success: function (data) {
                 alert(data);
+                loadTags();
             },
             error: function(data) {
                 alert(data);
@@ -30,6 +45,7 @@ $(document).ready(function () {
                 type: 'delete',
                 success: function (data) {
                     alert(data);
+                    loadTags();
                 },
                 error: function(data) {
                     alert(data);

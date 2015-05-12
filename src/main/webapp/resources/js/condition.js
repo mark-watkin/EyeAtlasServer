@@ -1,25 +1,6 @@
 $(document).ready(function () {
-    var getTemplate,
-        tagTemplate,
-        getValues,
+    var getValues,
         base64;
-
-    Handlebars.registerHelper("fourth", function(count, block) {
-        if(parseInt(count)%4 === 0){
-            return block.fn(this);
-        }
-    });
-
-    getTemplate = function(templatePath, success) {
-        $.ajax({
-            url: templatePath,
-            cache: true,
-            success: function(rawTemplate) {
-                var template = Handlebars.compile(rawTemplate);
-                success(template);
-            }
-        });
-    }
 
     base64 = function (input) {
         if (input.files && input.files[0]) {
@@ -43,7 +24,7 @@ $(document).ready(function () {
         base64(this);
     });
 
-    getTemplate('template/tag', function (template) {
+    getTemplate('template/tag_select', function (template) {
         $.ajax({
             url: '/rest/tag',
             success: function(json) {
@@ -52,7 +33,7 @@ $(document).ready(function () {
         });
     });
 
-    getTemplate('template/category', function (template) {
+    getTemplate('template/category_select', function (template) {
         Handlebars.registerPartial("recursion", template);
         $.ajax({
             url: '/rest/category',
@@ -89,7 +70,7 @@ $(document).ready(function () {
         });
 
         $('#upload-form')[0].reset();
-        $('#prev').attr('src', '#');
+        $('#prev').attr('src', 'http://placehold.it/450x300');
     });
 
     $('#delete-button').click(function () {

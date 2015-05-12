@@ -1,4 +1,20 @@
 $(document).ready(function () {
+
+    var loadCategories = function() {
+        getTemplate('template/category_display', function (template) {
+            Handlebars.registerPartial("recursion", template);
+            $.ajax({
+                url: '/rest/category',
+                success: function(json) {
+                    $("#category").html(template({children: json}));
+                }
+            });
+        });
+    }
+
+    loadCategories();
+
+
     $('#upload-button').click(function () {
         var categoryUpload = {
             parentName: $('#upload-form .category-parent').val(),
@@ -15,6 +31,7 @@ $(document).ready(function () {
             data: JSON.stringify(categoryUpload),
             success: function (data) {
                 alert(data);
+                loadCategories();
             },
             error: function(data) {
                 alert(data);
@@ -35,6 +52,7 @@ $(document).ready(function () {
             type: 'delete',
             success: function (data) {
                 alert(data);
+                loadCategories();
             },
             error: function(data) {
                 alert(data);

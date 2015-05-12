@@ -21,7 +21,7 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public List<Tag> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Tag t").list();
+        return sessionFactory.getCurrentSession().createQuery("from Tag t order by name").list();
     }
 
     @Override

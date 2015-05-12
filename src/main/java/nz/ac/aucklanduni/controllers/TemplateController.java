@@ -8,17 +8,31 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class TemplateController {
 
-    @RequestMapping(value = {"/template/tag"}, method = RequestMethod.GET)
-    public ModelAndView getTag() {
+    @RequestMapping(value = {"/template/tag_select"}, method = RequestMethod.GET)
+    public ModelAndView getTagSelect() {
         ModelAndView model = new ModelAndView();
-        model.setViewName("template/tag");
+        model.setViewName("template/tag_select");
         return model;
     }
 
-    @RequestMapping(value = {"/template/category"}, method = RequestMethod.GET)
-    public ModelAndView getCategory() {
+    @RequestMapping(value = {"/template/tag_display"}, method = RequestMethod.GET)
+    public ModelAndView getTagDisplay() {
         ModelAndView model = new ModelAndView();
-        model.setViewName("template/category");
+        model.setViewName("template/tag_display");
+        return model;
+    }
+
+    @RequestMapping(value = {"/template/category_select"}, method = RequestMethod.GET)
+    public ModelAndView getCategorySelect() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("template/category_select");
+        return model;
+    }
+
+    @RequestMapping(value = {"/template/category_display"}, method = RequestMethod.GET)
+    public ModelAndView getCategoryDisplay() {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("template/category_display");
         return model;
     }
 }
