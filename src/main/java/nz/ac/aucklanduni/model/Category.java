@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Category {
 
     private String name;
-    private int id;
+    private String description;
     private Category parent;
     private List<Category> children = new ArrayList<Category>();
 
@@ -26,9 +26,18 @@ public class Category {
         this.name = name;
     }
 
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
-        return "{ id: " + id + ", name: " + name + ", children :" + children.toString() + " }";
+        return "{  name: " + name + ", children :" + children.toString() + " }";
     }
 
     @JsonIgnore

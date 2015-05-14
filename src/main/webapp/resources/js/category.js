@@ -20,6 +20,7 @@ $(document).ready(function () {
             parentName: $('#upload-form .category-parent').val(),
             category: {
                 name: $('#upload-form .category-name').val(),
+                description: $('.category-description').val(),
                 children: []
             }
         };
@@ -38,8 +39,9 @@ $(document).ready(function () {
             }
         });
 
-        name: $('#upload-form .category-name').val("");
-        name: $('#upload-form .category-parent').val("");
+        $('#upload-form .category-name').val("");
+        $('#upload-form .category-parent').val("");
+        $('.category-description').val("");
     });
 
     $('#delete-button').click(function () {
@@ -59,7 +61,7 @@ $(document).ready(function () {
             }
         });
 
-        name: $('#delete-form .category-name').val("");
+        $('#delete-form .category-name').val("");
     });
 });
 

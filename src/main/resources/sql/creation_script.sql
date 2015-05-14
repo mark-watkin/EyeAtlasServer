@@ -8,6 +8,7 @@ CREATE DATABASE eye_atlas;
 
 CREATE TABLE category (
 	name VARCHAR(100) UNIQUE NOT NULL,
+	description VARCHAR(500),
 	parent VARCHAR(100) REFERENCES category(name),
 	PRIMARY KEY (name)
 );

@@ -45,6 +45,7 @@
                             <input type="text" class="form-control category-parent" placeholder="Category Parent">
                         </div>
                     </form>
+                    <textarea class="form-control category-description" placeholder="Description" rows="3"></textarea>
                     <a class="btn btn-info" id="upload-button" href="javascript:void(0)" role="button">Create Category &raquo;</a>
                 </div>
                 <div class="col-md-6">
