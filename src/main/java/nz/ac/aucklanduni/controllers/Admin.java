@@ -11,14 +11,14 @@ public class Admin {
     @RequestMapping(value = { "/" }, method = RequestMethod.GET)
     public ModelAndView landingPage() {
         ModelAndView model = new ModelAndView();
-        model.setViewName("entity");
+        model.setViewName("condition");
         return model;
     }
 
-    @RequestMapping(value = { "/infoentity" }, method = RequestMethod.GET)
+    @RequestMapping(value = { "/condition" }, method = RequestMethod.GET)
     public ModelAndView entity() {
         ModelAndView model = new ModelAndView();
-        model.setViewName("infoentity");
+        model.setViewName("condition");
         return model;
     }
 

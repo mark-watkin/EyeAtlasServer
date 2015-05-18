@@ -21,7 +21,7 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public List<Tag> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Tag t").list();
+        return sessionFactory.getCurrentSession().createQuery("from Tag t order by name").list();
     }
 
     @Override
@@ -32,11 +32,6 @@ public class TagDaoImpl implements TagDao {
     @Override
     public Tag find(String name) {
         return (Tag) sessionFactory.getCurrentSession().createCriteria(Tag.class).add(Restrictions.eq("name", name)).uniqueResult();
-    }
-
-    @Override
-    public Tag find(Integer id) {
-        return (Tag) sessionFactory.getCurrentSession().createCriteria(Tag.class).add(Restrictions.eq("id", id)).uniqueResult();
     }
 
     @Override

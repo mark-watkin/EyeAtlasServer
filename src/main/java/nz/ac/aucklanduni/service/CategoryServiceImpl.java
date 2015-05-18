@@ -2,6 +2,7 @@ package nz.ac.aucklanduni.service;
 
 import nz.ac.aucklanduni.dao.CategoryDao;
 import nz.ac.aucklanduni.model.Category;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,6 +16,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryDao categoryDao;
 
+    @Autowired
+    private CategoryCreateService categoryCreateService;
+
     /**
      * If this method is called with null or an empty as the parent parameter,
      * category is added as a child of the root.
@@ -22,20 +26,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
     public String createCategory(Category category, String parent) {
-        if(parent == null || parent.equals("")) {
-            return createCategory(category);
-        }
-
-        Category categoryParent = categoryDao.find(parent);
-        if (categoryParent == null) {
-            return "No category parent defined with name " + parent;
-        }
-
-        category.setParent(categoryParent);
-        categoryDao.save(category);
-        return "Category was successfully created!";
+        //TODO - should not be able to add category to parent referenced by condition
+        return categoryCreateService.createCategory(category, parent);
     }
-
 
     /**
      * Creates category as child of root.
@@ -43,8 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
     public String createCategory(Category category) {
-        categoryDao.save(category);
-        return "Category was successfully created!";
+        return createCategory(category, null);
     }
 
     @Override
@@ -60,12 +52,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
-    public Category find(Integer id) { return categoryDao.find(id); }
-
-    @Override
     @Transactional(propagation= Propagation.REQUIRED)
-    public void delete(Category category) {
-        categoryDao.delete(category);
+    public String delete(String id) {
+        try {
+            Category category = this.find(id);
+            categoryDao.delete(category);
+        } catch (IllegalArgumentException e) {
+            return "A category with name " + id + " has not been defined!";
+        }
+        return "The category was successfully deleted!";
     }
 }

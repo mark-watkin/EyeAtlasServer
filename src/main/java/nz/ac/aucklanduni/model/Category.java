@@ -6,15 +6,29 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "category")
 public class Category {
 
+    private String id;
     private String name;
-    private int id;
+    private String description;
     private Category parent;
     private List<Category> children = new ArrayList<Category>();
+
+    @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Column(name = "name")
     public String getName() {
@@ -25,21 +39,18 @@ public class Category {
         this.name = name;
     }
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return id;
+    @Column(name = "description")
+    public String getDescription() {
+        return description;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDescription(String description) {
+        this.description = description;
     }
-
 
     @Override
     public String toString() {
-        return "{ id: " + id + ", name: " + name + ", children :" + children.toString() + " }";
+        return "{  name: " + name + ", children :" + children.toString() + " }";
     }
 
     @JsonIgnore
@@ -53,7 +64,8 @@ public class Category {
         this.parent = parent;
     }
 
-    @OneToMany(mappedBy="parent", fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @OneToMany(mappedBy="parent", fetch=FetchType.EAGER)
+    @OrderBy("name")
     public List<Category> getChildren() {
         return children;
     }

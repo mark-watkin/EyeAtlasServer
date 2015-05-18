@@ -21,15 +21,7 @@ public class CategoryController {
 
     @RequestMapping(value = {"/rest/category"}, method = RequestMethod.POST, headers = {"content-type=application/json"})
     public String categoryUpload(@RequestBody CategoryUpload categoryUpload) {
-        if (categoryUpload.getCategory().getName() == null || categoryUpload.getCategory().getName().equals("")) {
-            return "The category name must not be empty!";
-        }
-        try {
-            return categoryService.createCategory(categoryUpload.getCategory(), categoryUpload.getParentName());
-        } catch (ConstraintViolationException e) {
-            e.printStackTrace();
-            return "A category with name " + categoryUpload.getCategory().getName() + " has already been defined!";
-        }
+        return categoryService.createCategory(categoryUpload.getCategory(), categoryUpload.getParentId());
     }
 
     @RequestMapping(value = {"/rest/category/"}, method = RequestMethod.DELETE)
@@ -37,15 +29,12 @@ public class CategoryController {
         return "The category name must not be empty!";
     }
 
-    @RequestMapping(value = {"/rest/category/{name}"}, method = RequestMethod.DELETE)
-    public String categoryDelete(@PathVariable("name") String name) {
+    @RequestMapping(value = {"/rest/category/{id}"}, method = RequestMethod.DELETE)
+    public String categoryDelete(@PathVariable("id") String id) {
         try {
-            Category category = categoryService.find(name);
-            categoryService.delete(category);
-            return "The tag was successfully deleted!";
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return "A category with name " + name + " has not been defined!";
+            return categoryService.delete(id);
+        } catch (Exception e ) {
+            return e.getMessage();
         }
     }
 }

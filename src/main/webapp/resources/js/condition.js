@@ -1,25 +1,6 @@
 $(document).ready(function () {
-    var getTemplate,
-        tagTemplate,
-        getValues,
+    var getValues,
         base64;
-
-    Handlebars.registerHelper("fourth", function(count, block) {
-        if(parseInt(count)%4 === 0){
-            return block.fn(this);
-        }
-    });
-
-    getTemplate = function(templatePath, success) {
-        $.ajax({
-            url: templatePath,
-            cache: true,
-            success: function(rawTemplate) {
-                var template = Handlebars.compile(rawTemplate);
-                success(template);
-            }
-        });
-    }
 
     base64 = function (input) {
         if (input.files && input.files[0]) {
@@ -43,16 +24,16 @@ $(document).ready(function () {
         base64(this);
     });
 
-    getTemplate('template/tag', function (template) {
+    getTemplate('template/tag_select', function (template) {
         $.ajax({
-            url: '/rest/tags',
+            url: '/rest/tag',
             success: function(json) {
                 $("#tags").html(template(json));
             }
         });
     });
 
-    getTemplate('template/category', function (template) {
+    getTemplate('template/category_select', function (template) {
         Handlebars.registerPartial("recursion", template);
         $.ajax({
             url: '/rest/category',
@@ -63,9 +44,9 @@ $(document).ready(function () {
     });
 
     $('#upload-button').click(function () {
-        var infoEntityUpload = {
+        var conditionUpload = {
 
-            infoEntity: {
+            condition: {
                 title: $('#upload-form .entity-name').val(),
                 description: $('#upload-form .entity-description').val()
             },
@@ -76,10 +57,10 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: '/rest/infoentity',
+            url: '/rest/condition',
             type: 'POST',
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(infoEntityUpload),
+            data: JSON.stringify(conditionUpload),
             success: function(data) {
                 alert(data);
             },
@@ -87,6 +68,28 @@ $(document).ready(function () {
                 alert(data);
             }
         });
+
+        $('#upload-form')[0].reset();
+        $('#prev').attr('src', 'http://placehold.it/450x300');
     });
+
+    $('#delete-button').click(function () {
+            var category = {
+                name: $('#delete-form .condition-name').val()
+            };
+
+            $.ajax({
+                url: '/rest/condition/' + category.name,
+                type: 'delete',
+                success: function (data) {
+                    alert(data);
+                },
+                error: function(data) {
+                    alert(data);
+                }
+            });
+
+            name: $('#delete-form .condition-name').val("");
+        });
 });
 

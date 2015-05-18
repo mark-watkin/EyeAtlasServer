@@ -5,10 +5,10 @@
 
 \c eye_atlas
 
-DROP TABLE entity_tag;
+DROP TABLE condition_tag;
 DROP TABLE image;
 DROP TABLE tags;
-DROP TABLE entity;
+DROP TABLE condition;
 DROP TABLE category;
 
 

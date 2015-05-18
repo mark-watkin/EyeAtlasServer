@@ -21,12 +21,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public Category find(String name) {
-        return (Category) sessionFactory.getCurrentSession().createCriteria(Category.class).add(Restrictions.eq("name", name)).uniqueResult();
-    }
-
-    @Override
-    public Category find(Integer id) {
-        return (Category) sessionFactory.getCurrentSession().createCriteria(Category.class).add(Restrictions.eq("id", id)).uniqueResult();
+        return (Category) sessionFactory.getCurrentSession().createCriteria(Category.class).add(Restrictions.eq("id", name)).uniqueResult();
     }
 
     @Override
@@ -41,6 +36,6 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public List findRoots() {
-        return sessionFactory.getCurrentSession().createQuery("from Category where parent = null").list();
+        return sessionFactory.getCurrentSession().createQuery("from Category where parent = null order by name").list();
     }
 }

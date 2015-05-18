@@ -2,11 +2,11 @@
 <li>
     {{name}}
     {{#if children}} {{! Within the context of the current item }}
-        <ul>
+    <ul>
         {{> recursion}} {{! Recursively render the partial }}
-        </ul>
+    </ul>
     {{else}}
-        <input type="radio" name="category" value="{{id}}">
+    <input type="radio" name="category" value="{{name}}">
     {{/if}}
 </li>
 {{/each}}

@@ -4,7 +4,8 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" defer></script>
         <script src="<c:url value='/resources/js/handlebars.js'/>" defer></script>
-        <script src="<c:url value='/resources/js/entity.js'/>" defer></script>
+        <script src="<c:url value='/resources/js/handlebars_helper.js'/>" defer></script>
+        <script src="<c:url value='/resources/js/condition.js'/>" defer></script>
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -24,7 +25,7 @@
 
         <div class="jumbotron">
             <div class="container">
-                <h1>Add remove or update entries</h1>
+                <h1>Add, update or remove conditions</h1>
             </div>
         </div>
 
@@ -33,12 +34,13 @@
                 <div class="col-md-8">
                     <h2>Upload</h2>
                     <form id="upload-form">
-                        <img id="prev" src="#"/>
+                        <img style="max-width: 450px;" id="prev" src="http://placehold.it/450x300"/>
                         <input type="file" name="file" id="file"></br>
                         <div class="input-group input-group-lg">
                             <input type="text" class="form-control entity-name" placeholder="Title">
                         </div>
                         <textarea class="form-control entity-description" placeholder="Description" rows="3"></textarea>
+                        <h3>Tags</h3>
                         <div id="tags"></div>
                         <h3>Categories</h3>
                         <div id="category"></div>
@@ -49,7 +51,7 @@
                     <h2>Delete</h2>
                     <form id="delete-form">
                         <div class="input-group input-group-lg">
-                            <input type="text" class="form-control" placeholder="Title">
+                            <input type="text" class="form-control condition-name" placeholder="Title">
                         </div>
                     </form>
                     <a class="btn btn-danger" id="delete-button" href="javascript:void(0)" role="button">Delete Image &raquo;</a>

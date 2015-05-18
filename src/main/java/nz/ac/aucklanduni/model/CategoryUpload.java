@@ -2,7 +2,7 @@ package nz.ac.aucklanduni.model;
 
 public class CategoryUpload {
     private Category category;
-    private String parentName;
+    private String parentId;
 
     public Category getCategory() {
         return category;
@@ -12,16 +12,16 @@ public class CategoryUpload {
         this.category = category;
     }
 
-    public String getParentName() {
-        return parentName;
+    public String getParentId() {
+        return parentId;
     }
 
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
     }
 
     @Override
     public String toString() {
-        return "{ category: " + category.toString() + ", parent: " + parentName + " }";
+        return "{ category: " + category.toString() + ", parent: " + parentId + " }";
     }
 }
