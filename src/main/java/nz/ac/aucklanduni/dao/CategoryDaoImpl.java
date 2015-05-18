@@ -21,7 +21,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public Category find(String name) {
-        return (Category) sessionFactory.getCurrentSession().createCriteria(Category.class).add(Restrictions.eq("name", name)).uniqueResult();
+        return (Category) sessionFactory.getCurrentSession().createCriteria(Category.class).add(Restrictions.eq("id", name)).uniqueResult();
     }
 
     @Override

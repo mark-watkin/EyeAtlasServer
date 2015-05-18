@@ -53,12 +53,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
-    public String delete(String name) {
+    public String delete(String id) {
         try {
-            Category category = this.find(name);
+            Category category = this.find(id);
             categoryDao.delete(category);
         } catch (IllegalArgumentException e) {
-            return "A category with name " + name + " has not been defined!";
+            return "A category with name " + id + " has not been defined!";
         }
         return "The category was successfully deleted!";
     }

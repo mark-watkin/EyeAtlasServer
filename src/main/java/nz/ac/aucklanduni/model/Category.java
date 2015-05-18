@@ -6,17 +6,30 @@ import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Cascade;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "category")
 public class Category {
 
+    private String id;
     private String name;
     private String description;
     private Category parent;
     private List<Category> children = new ArrayList<Category>();
 
     @Id
+    @Column(name = "id")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Column(name = "name")
     public String getName() {
         return name;
@@ -51,7 +64,7 @@ public class Category {
         this.parent = parent;
     }
 
-    @OneToMany(mappedBy="parent", fetch=FetchType.EAGER, cascade={CascadeType.ALL})
+    @OneToMany(mappedBy="parent", fetch=FetchType.EAGER)
     @OrderBy("name")
     public List<Category> getChildren() {
         return children;

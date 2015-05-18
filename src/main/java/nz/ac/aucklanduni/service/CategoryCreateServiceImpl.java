@@ -1,6 +1,6 @@
 package nz.ac.aucklanduni.service;
 
-import nz.ac.aucklanduni.Exceptions.ParentNotFoundException;
+import nz.ac.aucklanduni.exceptions.ParentNotFoundException;
 import nz.ac.aucklanduni.dao.CategoryDao;
 import nz.ac.aucklanduni.model.Category;
 import nz.ac.aucklanduni.util.Conditional;
@@ -15,11 +15,12 @@ public class CategoryCreateServiceImpl implements CategoryCreateService {
 
     @Override
     public String createCategory(Category category, String parent) {
+
         if (!Conditional.isStringSet(category.getName())) {
             return "Category must have a name!";
-        } else if (Conditional.isSet(categoryDao.find(category.getName()))) {
-            return "Category " + category.getName() + " already exists!";
         }
+
+        setCategoryId(category, parent);
 
         try {
             this.defineParent(category, parent);
@@ -38,6 +39,14 @@ public class CategoryCreateServiceImpl implements CategoryCreateService {
                 throw new ParentNotFoundException();
             }
             category.setParent(categoryParent);
+        }
+    }
+
+    public void setCategoryId(Category category, String parent) {
+        if (Conditional.isStringSet(parent)) {
+            category.setId(parent + "_" + category.getName());
+        } else {
+            category.setId(category.getName());
         }
     }
 }

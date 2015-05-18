@@ -7,10 +7,11 @@ CREATE DATABASE eye_atlas;
 \c eye_atlas
 
 CREATE TABLE category (
-	name VARCHAR(100) UNIQUE NOT NULL,
+  id VARCHAR(500) UNIQUE NOT NULL,
+	name VARCHAR(100) NOT NULL,
 	description VARCHAR(500),
-	parent VARCHAR(100) REFERENCES category(name),
-	PRIMARY KEY (name)
+	parent VARCHAR(500) REFERENCES category(id),
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE tags (
@@ -21,7 +22,7 @@ CREATE TABLE tags (
 CREATE TABLE condition (
 	title VARCHAR(100) UNIQUE NOT NULL,
 	description VARCHAR(500) NOT NULL,
-	category VARCHAR(100) REFERENCES category(name),
+	category VARCHAR(100) REFERENCES category(id),
 	PRIMARY KEY (title)
 );
 

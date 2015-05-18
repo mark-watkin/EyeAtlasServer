@@ -21,7 +21,7 @@ public class CategoryController {
 
     @RequestMapping(value = {"/rest/category"}, method = RequestMethod.POST, headers = {"content-type=application/json"})
     public String categoryUpload(@RequestBody CategoryUpload categoryUpload) {
-        return categoryService.createCategory(categoryUpload.getCategory(), categoryUpload.getParentName());
+        return categoryService.createCategory(categoryUpload.getCategory(), categoryUpload.getParentId());
     }
 
     @RequestMapping(value = {"/rest/category/"}, method = RequestMethod.DELETE)
@@ -29,12 +29,12 @@ public class CategoryController {
         return "The category name must not be empty!";
     }
 
-    @RequestMapping(value = {"/rest/category/{name}"}, method = RequestMethod.DELETE)
-    public String categoryDelete(@PathVariable("name") String name) {
+    @RequestMapping(value = {"/rest/category/{id}"}, method = RequestMethod.DELETE)
+    public String categoryDelete(@PathVariable("id") String id) {
         try {
-            return categoryService.delete(name);
+            return categoryService.delete(id);
         } catch (Exception e ) {
-            return "Cannot delete a category that is referenced by a condition";
+            return e.getMessage();
         }
     }
 }

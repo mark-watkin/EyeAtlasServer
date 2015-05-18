@@ -1,4 +1,4 @@
-package nz.ac.aucklanduni.Exceptions;
+package nz.ac.aucklanduni.exceptions;
 
 public class ParentNotFoundException extends Exception {
 }
