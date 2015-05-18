@@ -34,30 +34,6 @@
         </div>
 
         <div class="container">
-            <%--<div class="row">--%>
-                <%--<div class="col-md-6">--%>
-                    <%--<h2>Create</h2>--%>
-                    <%--<form id="upload-form">--%>
-                        <%--<div class="input-group input-group-lg">--%>
-                            <%--<input type="text" class="form-control category-name" placeholder="Category Name">--%>
-                        <%--</div>--%>
-                        <%--<div class="input-group input-group-lg">--%>
-                            <%--<input type="text" class="form-control category-parent" placeholder="Category Parent">--%>
-                        <%--</div>--%>
-                    <%--</form>--%>
-                    <%--<textarea class="form-control category-description" placeholder="Description" rows="3"></textarea>--%>
-                    <%--<a class="btn btn-info" id="upload-button" href="javascript:void(0)" role="button">Create Category &raquo;</a>--%>
-                <%--</div>--%>
-                <%--<div class="col-md-6">--%>
-                    <%--<h2>Delete</h2>--%>
-                    <%--<form id="delete-form">--%>
-                        <%--<div class="input-group input-group-lg">--%>
-                            <%--<input type="text" class="form-control category-name" placeholder="Category Name">--%>
-                        <%--</div>--%>
-                    <%--</form>--%>
-                    <%--<a class="btn btn-danger" id="delete-button" href="javascript:void(0)" role="button">Delete Category &raquo;</a>--%>
-                <%--</div>--%>
-            <%--</div>--%>
             <div class="row">
                 <div class="col-md-12 top_10">
                     <h3>
@@ -92,8 +68,8 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary saveChange">Save changes</button>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                </div>
+            </div>
+        </div>
     </body>
 </html>
