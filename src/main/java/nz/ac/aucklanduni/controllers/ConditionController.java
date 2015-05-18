@@ -6,9 +6,12 @@ import nz.ac.aucklanduni.model.ConditionUpload;
 import nz.ac.aucklanduni.model.Tag;
 import nz.ac.aucklanduni.service.CategoryService;
 import nz.ac.aucklanduni.service.ConditionService;
+import nz.ac.aucklanduni.util.ImageProcessor;
+import nz.ac.aucklanduni.util.S3ImageAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,12 +49,22 @@ public class ConditionController {
 
         condition.setTags(tagSet);
 
+        ImageProcessor.uploadImage(condition.getTitle(), conditionUpload.getImage());
         return conditionService.createCondition(condition);
     }
 
     @RequestMapping(value = "/rest/condition/{name}", method = RequestMethod.DELETE)
     public String conditionDelete(@PathVariable("name") String name) {
-        return this.conditionService.delete(name);
+
+        String result =  this.conditionService.delete(name);
+        try {
+            ImageProcessor.deleteImage(name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return result;
     }
 
 }

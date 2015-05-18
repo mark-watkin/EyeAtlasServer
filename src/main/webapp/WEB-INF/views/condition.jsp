@@ -25,7 +25,7 @@
 
         <div class="jumbotron">
             <div class="container">
-                <h1>Add, update or remove conditions</h1>
+                <h1>Add or remove conditions</h1>
             </div>
         </div>
 
@@ -55,6 +55,22 @@
                         </div>
                     </form>
                     <a class="btn btn-danger" id="delete-button" href="javascript:void(0)" role="button">Delete Image &raquo;</a>
+                </div>
+            </div>
+        </div>
+        <div id="processingModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Processing</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%">
+                                <span class="sr-only">100% Complete</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

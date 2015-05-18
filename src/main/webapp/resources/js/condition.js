@@ -62,12 +62,17 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(conditionUpload),
             success: function(data) {
+                $('#processingModal').modal('hide');
                 alert(data);
+
             },
             fail: function(data) {
+                $('#processingModal').modal('hide');
                 alert(data);
             }
         });
+
+        $('#processingModal').modal('show');
 
         $('#upload-form')[0].reset();
         $('#prev').attr('src', 'http://placehold.it/450x300');

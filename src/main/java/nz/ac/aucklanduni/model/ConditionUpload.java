@@ -39,7 +39,7 @@ public class ConditionUpload {
 
     @Override
     public String toString() {
-        return "{ condition: " + condition.toString() + ", category: " + category + ", tags: " + tags + " }";
+        return "{ condition: " + condition.toString() + ", category: " + category + ", tags: " + tags + ", image: " +  image + " }";
     }
 
 }
