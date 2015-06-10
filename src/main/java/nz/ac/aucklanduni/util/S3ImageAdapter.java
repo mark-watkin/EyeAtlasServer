@@ -23,9 +23,7 @@ import java.util.List;
 
 public class S3ImageAdapter {
 
-    private static final String PROPERTY_PATH = "META-INF/properties/s3metadata.properties";
-    private static final String CREDENTIAL_PATH = "META-INF/properties/s3credential.properties";
-
+    private static final String PROPERTY_PATH = "META-INF/properties/s3properties.properties";
     private static S3Properties properties;
 
     static {
@@ -42,8 +40,8 @@ public class S3ImageAdapter {
 
     }
 
-    public static void upload(String filePath, String image) throws IOException {
-        AmazonS3 s3Client = new AmazonS3Client(new PropertiesCredentials(S3ImageAdapter.class.getClassLoader().getResourceAsStream(CREDENTIAL_PATH)));
+    public static void upload(String filePath) throws IOException {
+        AmazonS3 s3Client = new AmazonS3Client(properties);
         s3Client.setRegion(Region.getRegion(Regions.AP_SOUTHEAST_2));
 
         FileInputStream stream = new FileInputStream(filePath);
@@ -57,7 +55,7 @@ public class S3ImageAdapter {
     }
 
     public static void delete(String filePath) throws IOException {
-        AmazonS3 s3Client = new AmazonS3Client(new PropertiesCredentials(S3ImageAdapter.class.getClassLoader().getResourceAsStream(CREDENTIAL_PATH)));
+        AmazonS3 s3Client = new AmazonS3Client(properties);
         s3Client.setRegion(Region.getRegion(Regions.AP_SOUTHEAST_2));
 
         ObjectListing listing = s3Client.listObjects(properties.getBucketName(), filePath);

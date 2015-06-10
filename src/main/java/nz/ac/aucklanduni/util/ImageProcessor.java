@@ -32,7 +32,7 @@ public class ImageProcessor {
             String filePath = writeImageToTempStorage(folderPath + File.separator + keyName, image);
 
 //            ImageSplitter.splitImageBySize(filePath, folderPath, 1000, 1000);
-            S3ImageAdapter.upload(filePath, image);
+            S3ImageAdapter.upload(filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
