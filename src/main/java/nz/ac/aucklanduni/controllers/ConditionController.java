@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -27,18 +28,47 @@ public class ConditionController {
     @Autowired
     private TagDao tagDao;
 
-    @RequestMapping(value = "/rest/condition/{name}", method = RequestMethod.GET)
+    // Get Request for ALL
+    @RequestMapping(value = "/rest/condition/all/{startIndex}/{endIndex}", method = RequestMethod.GET)
     public @ResponseBody
-    Condition getCondition(@PathVariable("name") String name) {
-        return conditionService.find(name);
+    List<Condition> getAllConditions(@PathVariable("startIndex") int startIndex,@PathVariable("endIndex") int endIndex) {
+        return conditionService.findAllConditions(startIndex, endIndex);
     }
 
-    @RequestMapping(value = "/rest/condition/count", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/condition/all/count", method = RequestMethod.GET)
     public @ResponseBody
-    Long getConditionCount() {
-        return conditionService.getConditionCount();
+    Long getAllConditionCount() {
+        return conditionService.getAllConditionsCount();
     }
 
+    // Get Request for Category
+    @RequestMapping(value = "/rest/condition/category/{title}/{startIndex}/{endIndex}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Condition> getCategoryConditions(@PathVariable("title") String title, @PathVariable("startIndex") int startIndex,@PathVariable("endIndex") int endIndex) {
+        return conditionService.findCategoryConditions(title, startIndex, endIndex);
+    }
+
+    @RequestMapping(value = "/rest/condition/category/{title}/count", method = RequestMethod.GET)
+    public @ResponseBody
+    Long getCategoryConditionCount(@PathVariable("title") String title) {
+        return conditionService.getCategoryConditionsCount(title);
+    }
+
+    // Get Request for Search term
+    @RequestMapping(value = "/rest/condition/search/{term}/{startIndex}/{endIndex}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Condition> getSearchConditions(@PathVariable("term") String term, @PathVariable("startIndex") int startIndex,@PathVariable("endIndex") int endIndex) {
+        return conditionService.findSearchConditions(term, startIndex, endIndex);
+    }
+
+    @RequestMapping(value = "/rest/condition/search/{term}/count", method = RequestMethod.GET)
+    public @ResponseBody
+    Long getSearchConditionCount(@PathVariable("term") String term) {
+        return conditionService.getSearchConditionsCount(term);
+    }
+
+
+    // Post Request for conditions
     @RequestMapping(value = "/rest/condition", method = RequestMethod.POST)
     public String conditionUpload(@RequestBody ConditionUpload conditionUpload) {
         if (conditionUpload.getCategory() == null || conditionUpload.getCategory().equals("")) {
@@ -59,6 +89,7 @@ public class ConditionController {
         return conditionService.createCondition(condition);
     }
 
+    // Delete request for conditions
     @RequestMapping(value = "/rest/condition/{name}", method = RequestMethod.DELETE)
     public String conditionDelete(@PathVariable("name") String name) {
 

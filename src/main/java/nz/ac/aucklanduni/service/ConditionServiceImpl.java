@@ -29,20 +29,51 @@ public class ConditionServiceImpl implements ConditionService {
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
-    public List<Condition> findAll() {
-        return this.conditionDao.findAll();
+    public List<Condition> findAllConditions() {
+        return this.conditionDao.findAllConditions();
     }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public List<Condition> findAllConditions(int startIndex, int endIndex) {
+        return this.conditionDao.findAllConditions(startIndex, endIndex);
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public Long getAllConditionsCount() {
+        return this.conditionDao.getAllConditionsCount();
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public List<Condition> findCategoryConditions(String title, int startIndex, int endIndex) {
+        return this.conditionDao.findCategoryConditions(title, startIndex, endIndex);
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public Long getCategoryConditionsCount(String title) {
+        return this.conditionDao.getCategoryConditionsCount(title);
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public List<Condition> findSearchConditions(String term, int startIndex, int endIndex) {
+        return this.conditionDao.findSearchConditions(term, startIndex, endIndex);
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public Long getSearchConditionsCount(String term) {
+        return this.conditionDao.getSearchConditionsCount(term);
+    }
+
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
     public Condition find(String title) {
         return this.conditionDao.find(title);
-    }
-
-    @Override
-    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
-    public Long getConditionCount() {
-        return this.conditionDao.getConditionCount();
     }
 
     @Override

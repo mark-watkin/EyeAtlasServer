@@ -1,6 +1,7 @@
 package nz.ac.aucklanduni.dao;
 
 import nz.ac.aucklanduni.model.Condition;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -19,8 +20,41 @@ public class ConditionDaoImpl implements ConditionDao {
     }
 
     @Override
-    public List<Condition> findAll() {
+    public List<Condition> findAllConditions() {
         return sessionFactory.getCurrentSession().createQuery("from Condition i").list();
+    }
+
+    @Override
+    public List<Condition> findAllConditions(int startIndex, int endIndex) {
+        Query query = sessionFactory.getCurrentSession().createQuery("from Condition i");
+        query.setFirstResult(startIndex);
+        query.setMaxResults(endIndex - startIndex);
+        return query.list();
+    }
+
+    @Override
+    public Long getAllConditionsCount() {
+        return (Long)sessionFactory.getCurrentSession().createQuery("select count(i) from Condition i").uniqueResult();
+    }
+
+    @Override
+    public List<Condition> findCategoryConditions(String title, int startIndex, int endIndex) {
+        return null;
+    }
+
+    @Override
+    public Long getCategoryConditionsCount(String title) {
+        return null;
+    }
+
+    @Override
+    public List<Condition> findSearchConditions(String term, int startIndex, int endIndex) {
+        return null;
+    }
+
+    @Override
+    public Long getSearchConditionsCount(String term) {
+        return null;
     }
 
     @Override
@@ -29,14 +63,6 @@ public class ConditionDaoImpl implements ConditionDao {
                 getCurrentSession().
                 createCriteria(Condition.class).
                 add(Restrictions.eq("title", title)).
-                uniqueResult();
-    }
-
-    @Override
-    public Long getConditionCount() {
-        return (Long)sessionFactory.
-                getCurrentSession().
-                createQuery("select count(i) from Condition i").
                 uniqueResult();
     }
 
