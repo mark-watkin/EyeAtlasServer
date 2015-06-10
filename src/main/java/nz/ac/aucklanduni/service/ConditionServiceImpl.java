@@ -40,6 +40,12 @@ public class ConditionServiceImpl implements ConditionService {
     }
 
     @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public Long getConditionCount() {
+        return this.conditionDao.getConditionCount();
+    }
+
+    @Override
     @Transactional(propagation= Propagation.REQUIRED)
     public String delete(String title) {
         Condition condition = this.conditionDao.find(title);

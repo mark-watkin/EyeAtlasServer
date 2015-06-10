@@ -12,6 +12,8 @@ public interface ConditionService {
 
     public Condition find(String title);
 
+    public Long getConditionCount();
+
     public String delete(String title);
 
     public void delete(Condition conditionDto);

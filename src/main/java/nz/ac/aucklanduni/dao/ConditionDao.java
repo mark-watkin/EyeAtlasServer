@@ -10,6 +10,8 @@ public interface ConditionDao {
 
     public Condition find(String title);
 
+    public Long getConditionCount();
+
     public void save(Condition conditionDao);
 
     public void delete(Condition conditionDto);

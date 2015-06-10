@@ -27,10 +27,16 @@ public class ConditionController {
     @Autowired
     private TagDao tagDao;
 
-    @RequestMapping(value = "/rest/condition/{title}", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/condition/{name}", method = RequestMethod.GET)
     public @ResponseBody
-    Condition getCondition(@PathVariable("title") String title) {
-        return conditionService.find(title);
+    Condition getCondition(@PathVariable("name") String name) {
+        return conditionService.find(name);
+    }
+
+    @RequestMapping(value = "/rest/condition/count", method = RequestMethod.GET)
+    public @ResponseBody
+    Long getConditionCount() {
+        return conditionService.getConditionCount();
     }
 
     @RequestMapping(value = "/rest/condition", method = RequestMethod.POST)

@@ -20,7 +20,7 @@ public class ConditionDaoImpl implements ConditionDao {
 
     @Override
     public List<Condition> findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from condition i").list();
+        return sessionFactory.getCurrentSession().createQuery("from Condition i").list();
     }
 
     @Override
@@ -29,6 +29,14 @@ public class ConditionDaoImpl implements ConditionDao {
                 getCurrentSession().
                 createCriteria(Condition.class).
                 add(Restrictions.eq("title", title)).
+                uniqueResult();
+    }
+
+    @Override
+    public Long getConditionCount() {
+        return (Long)sessionFactory.
+                getCurrentSession().
+                createQuery("select count(i) from Condition i").
                 uniqueResult();
     }
 
