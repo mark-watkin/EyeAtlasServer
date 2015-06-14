@@ -58,21 +58,21 @@ public class ConditionDaoImpl implements ConditionDao {
     }
 
     @Override
-    public Condition find(String title) {
+    public Condition find(Integer id) {
         return (Condition) sessionFactory.
                 getCurrentSession().
                 createCriteria(Condition.class).
-                add(Restrictions.eq("title", title)).
+                add(Restrictions.eq("id", id)).
                 uniqueResult();
     }
 
     @Override
-    public void save(Condition conditionDto) {
-        this.sessionFactory.getCurrentSession().saveOrUpdate(conditionDto);
+    public void save(Condition condition) {
+        this.sessionFactory.getCurrentSession().save(condition);
     }
 
     @Override
-    public void delete(Condition conditionDto) {
-        this.sessionFactory.getCurrentSession().delete(conditionDto);
+    public void delete(Condition condition) {
+        this.sessionFactory.getCurrentSession().delete(condition);
     }
 }

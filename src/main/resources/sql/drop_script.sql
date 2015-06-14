@@ -7,7 +7,7 @@
 
 DROP TABLE condition_tag;
 DROP TABLE image;
-DROP TABLE tags;
+DROP TABLE tag;
 DROP TABLE condition;
 DROP TABLE category;
 

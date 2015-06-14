@@ -1,13 +1,13 @@
 package nz.ac.aucklanduni.controllers;
 
-import nz.ac.aucklanduni.dao.TagDao;
 import nz.ac.aucklanduni.model.Condition;
 import nz.ac.aucklanduni.model.ConditionUpload;
 import nz.ac.aucklanduni.model.Tag;
 import nz.ac.aucklanduni.service.CategoryService;
 import nz.ac.aucklanduni.service.ConditionService;
+import nz.ac.aucklanduni.service.TagService;
 import nz.ac.aucklanduni.util.ImageProcessor;
-import nz.ac.aucklanduni.util.S3ImageAdapter;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +26,7 @@ public class ConditionController {
     private CategoryService categoryService;
 
     @Autowired
-    private TagDao tagDao;
+    private TagService tagService;
 
     // Get Request for ALL
     @RequestMapping(value = "/rest/condition/all/{startIndex}/{endIndex}", method = RequestMethod.GET)
@@ -71,7 +71,11 @@ public class ConditionController {
     // Post Request for conditions
     @RequestMapping(value = "/rest/condition", method = RequestMethod.POST)
     public String conditionUpload(@RequestBody ConditionUpload conditionUpload) {
-        if (conditionUpload.getCategory() == null || conditionUpload.getCategory().equals("")) {
+
+        // Value checks
+        if (conditionUpload.getCondition().getTitle() == null || conditionUpload.getCondition().getTitle().equals("")) {
+            return "The Condition must have a title!";
+        }else if (conditionUpload.getCategory() == null || conditionUpload.getCategory().equals("")) {
             return "The Condition must have a category!";
         }
 
@@ -80,28 +84,53 @@ public class ConditionController {
 
         Set<Tag> tagSet = new HashSet<Tag>();
         for(String name : conditionUpload.getTags()) {
-            tagSet.add(tagDao.find(name));
+            tagSet.add(tagService.find(name));
         }
 
         condition.setTags(tagSet);
 
-        ImageProcessor.uploadImage(condition.getTitle(), conditionUpload.getImage());
-        return conditionService.createCondition(condition);
+        Condition result = conditionService.createCondition(condition);
+
+        if (result != null) {
+            try {
+                ImageProcessor.uploadImage(condition.getId().toString(), conditionUpload.getImage());
+            } catch (IOException e) {
+                e.printStackTrace();
+                conditionService.delete(result);
+                return "Condition creation was UNSUCCESSFUL!";
+            }
+        }
+
+        return "Condition creation was SUCCESSFUL!";
     }
 
     // Delete request for conditions
-    @RequestMapping(value = "/rest/condition/{name}", method = RequestMethod.DELETE)
-    public String conditionDelete(@PathVariable("name") String name) {
+    @RequestMapping(value = "/rest/condition/{id}", method = RequestMethod.DELETE)
+    public String conditionDelete(@PathVariable("id") Integer id) {
 
-        String result =  this.conditionService.delete(name);
-        try {
-            ImageProcessor.deleteImage(name);
-        } catch (Exception e) {
-            e.printStackTrace();
+        Condition condition = this.conditionService.find(id);
+
+        if(condition == null) {
+            return "Condition with ID: " + id + " does not exist.";
         }
 
+        boolean deleted =  this.conditionService.delete(condition.getId());
 
-        return result;
+        if(!deleted) {
+            return "Condition deletion UNSUCCESSFUL!";
+        }
+
+        try {
+            ImageProcessor.deleteImage(condition.getId().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  "Condition data deletion SUCCESSFUL.\n" +
+                    "Image deletion UNSUCCESSFUL.\n" +
+                    "Please delete the image from the file storage manually.\n" +
+                    "IMAGE ID: " + condition.getId();
+        }
+
+        return "Condition deletion SUCCESSFUL!";
     }
 
 }

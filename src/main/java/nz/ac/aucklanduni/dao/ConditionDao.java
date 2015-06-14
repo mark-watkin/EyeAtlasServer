@@ -20,10 +20,10 @@ public interface ConditionDao {
 
     public Long getSearchConditionsCount(String term);
 
-    public Condition find(String title);
+    public Condition find(Integer id);
 
-    public void save(Condition conditionDao);
+    public void save(Condition condition);
 
-    public void delete(Condition conditionDto);
+    public void delete(Condition condition);
 
 }

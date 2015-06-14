@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ConditionService {
 
-    public String createCondition(Condition condition);
+    public Condition createCondition(Condition condition);
 
     public List<Condition> findAllConditions();
 
@@ -22,12 +22,10 @@ public interface ConditionService {
 
     public Long getSearchConditionsCount(String term);
 
-    public Condition find(String title);
+    public Condition find(Integer id);
 
+    public boolean delete(Integer id);
 
-
-    public String delete(String title);
-
-    public void delete(Condition conditionDto);
+    public void delete(Condition condition);
 
 }

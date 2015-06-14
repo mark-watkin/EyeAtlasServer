@@ -3,7 +3,7 @@ package nz.ac.aucklanduni.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "tag")
 public class Tag {
 
     private String name;

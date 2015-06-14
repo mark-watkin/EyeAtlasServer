@@ -26,7 +26,7 @@ public class ImageProcessor {
         return img.getPath();
     }
 
-    public static void uploadImage(String keyName, String image) {
+    public static void uploadImage(String keyName, String image) throws IOException {
         try {
             String folderPath = createFolder(keyName);
             String filePath = writeImageToTempStorage(folderPath + File.separator + keyName, image);
@@ -35,6 +35,7 @@ public class ImageProcessor {
             S3ImageAdapter.upload(filePath);
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
         }
 
     }

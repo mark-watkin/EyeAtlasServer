@@ -14,21 +14,22 @@ CREATE TABLE category (
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE tags (
+CREATE TABLE tag (
 	name VARCHAR(100) UNIQUE NOT NULL,
 	PRIMARY KEY (name)
 );
 
 CREATE TABLE condition (
-	title VARCHAR(100) UNIQUE NOT NULL,
+  id SERIAL UNIQUE NOT NULL,
+	title VARCHAR(100) NOT NULL,
 	description VARCHAR(500) NOT NULL,
 	category VARCHAR(100) REFERENCES category(id),
-	PRIMARY KEY (title)
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE condition_tag (
-	C_id VARCHAR(100) REFERENCES condition(title),
-	T_id VARCHAR(100) REFERENCES tags(name),
+	C_id INTEGER REFERENCES condition(id),
+	T_id VARCHAR(100) REFERENCES tag(name),
 	PRIMARY KEY (C_id, T_id)
 );
 
@@ -36,7 +37,7 @@ CREATE TABLE image (
 	resolution INTEGER NOT NULL,
 	column_count INTEGER NOT NULL,
 	row_count INTEGER NOT NULL,
-	C_id VARCHAR(100) REFERENCES condition(title),
+	C_id INTEGER REFERENCES condition(id),
 	PRIMARY KEY (resolution, C_id)
 );
 

@@ -14,12 +14,23 @@ import java.util.Set;
 @Table(name = "condition")
 public class Condition {
 
+    private Integer id;
     private String title;
     private String description;
     private Category category;
     private Set<Tag> tags = new HashSet<Tag>();
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Column(name = "title")
     public String getTitle() {
         return title;
@@ -33,7 +44,6 @@ public class Condition {
     public String getDescription() { return description; }
 
     public void setDescription(String description) { this.description = description; }
-
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category")
@@ -58,7 +68,7 @@ public class Condition {
 
     @Override
     public String toString() {
-        return "{ title: " + title + ", desc :" + description + ", category :" + category
+        return "{ id: " + id + ", title: " + title + ", desc :" + description + ", category :" + category
                 + ", tags :" + tags + " }";
     }
 }

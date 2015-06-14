@@ -3,6 +3,7 @@ package nz.ac.aucklanduni.service;
 import nz.ac.aucklanduni.dao.ConditionDao;
 import nz.ac.aucklanduni.model.Condition;
 import nz.ac.aucklanduni.model.Tag;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,12 +19,15 @@ public class ConditionServiceImpl implements ConditionService {
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
-    public String createCondition(Condition condition) {
-        if (this.conditionDao.find(condition.getTitle()) != null) {
-            return "Failed to create condition, it already exists!";
+    public Condition createCondition(Condition condition) {
+        try {
+            conditionDao.save(condition);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
         }
-        conditionDao.save(condition);
-        return "Condition was successfully created!";
+        return condition;
 
     }
 
@@ -72,24 +76,24 @@ public class ConditionServiceImpl implements ConditionService {
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
-    public Condition find(String title) {
-        return this.conditionDao.find(title);
+    public Condition find(Integer id) {
+        return this.conditionDao.find(id);
     }
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
-    public String delete(String title) {
-        Condition condition = this.conditionDao.find(title);
+    public boolean delete(Integer id) {
+        Condition condition = this.conditionDao.find(id);
         if (condition == null) {
-            return "Condition " + title + " does not exist in database";
+            return false;
         }
         this.conditionDao.delete(condition);
-        return "Condition was deleted successfully";
+        return true;
     }
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
-    public void delete(Condition conditionDto) {
-        this.conditionDao.delete(conditionDto);
+    public void delete(Condition condition) {
+        this.conditionDao.delete(condition);
     }
 }
