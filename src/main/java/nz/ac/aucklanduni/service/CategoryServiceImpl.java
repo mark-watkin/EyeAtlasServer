@@ -62,4 +62,10 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return "The category was successfully deleted!";
     }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED)
+    public List<Category> getCategories(String parent) {
+        return categoryDao.getCategories(parent);
+    }
 }

@@ -38,4 +38,10 @@ public class CategoryDaoImpl implements CategoryDao {
     public List findRoots() {
         return sessionFactory.getCurrentSession().createQuery("from Category where parent = null order by name").list();
     }
+
+    @Override
+    public List getCategories(String parent) {
+        String hql = "from Category where parent = :parent order by name";
+        return sessionFactory.getCurrentSession().createQuery(hql).setString("parent", parent).list();
+    }
 }

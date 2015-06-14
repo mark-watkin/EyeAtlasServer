@@ -13,4 +13,6 @@ public interface CategoryDao {
     public void save(Category categoryDto);
 
     public List findRoots();
+
+    List<Category> getCategories(String parent);
 }

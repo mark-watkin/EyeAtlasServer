@@ -21,4 +21,6 @@ public interface CategoryService {
     public Category find(String name);
 
     public String delete(String name);
+
+    List<Category> getCategories(String parent);
 }
