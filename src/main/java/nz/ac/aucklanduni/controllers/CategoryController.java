@@ -19,6 +19,11 @@ public class CategoryController {
         return categoryService.findRoots();
     }
 
+    @RequestMapping(value = {"/rest/category/{parent}"}, method = RequestMethod.GET)
+    public List<Category> getCategories(@PathVariable("parent") String parent) {
+        return categoryService.getCategories(parent);
+    }
+
     @RequestMapping(value = {"/rest/category"}, method = RequestMethod.POST, headers = {"content-type=application/json"})
     public String categoryUpload(@RequestBody CategoryUpload categoryUpload) {
         return categoryService.createCategory(categoryUpload.getCategory(), categoryUpload.getParentId());
