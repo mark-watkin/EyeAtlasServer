@@ -29,6 +29,12 @@ public class ConditionController {
     private TagService tagService;
 
     // Get Request for ALL
+    @RequestMapping(value = "/rest/condition/all", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Condition> getAllConditions() {
+        return conditionService.findAllConditions();
+    }
+
     @RequestMapping(value = "/rest/condition/all/{startIndex}/{endIndex}", method = RequestMethod.GET)
     public @ResponseBody
     List<Condition> getAllConditions(@PathVariable("startIndex") int startIndex,@PathVariable("endIndex") int endIndex) {
