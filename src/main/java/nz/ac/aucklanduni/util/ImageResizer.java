@@ -17,7 +17,7 @@ public class ImageResizer {
      * @param percentage
      * @throws IOException
      */
-    public static void resizeImage(String inputFilePath, String outputPath, int percentage) throws IOException {
+    public static String resizeImage(String inputFilePath, String outputPath, String outputName, int percentage) throws IOException {
 
         File file = new File(inputFilePath);
         FileInputStream fis = new FileInputStream(file);
@@ -26,7 +26,16 @@ public class ImageResizer {
         final int IMG_WIDTH = originalImage.getWidth() * percentage / 100;
         final int IMG_HEIGHT = originalImage.getHeight() * percentage / 100;
 
-        resizeImage(originalImage, outputPath, IMG_WIDTH, IMG_HEIGHT, percentage);
+        return resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT, percentage);
+
+    }
+
+    public static String resizeImage(BufferedImage originalImage, String outputPath, String outputName, int percentage) throws IOException {
+
+        final int IMG_WIDTH = originalImage.getWidth() * percentage / 100;
+        final int IMG_HEIGHT = originalImage.getHeight() * percentage / 100;
+
+        return resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT, percentage);
 
     }
 
@@ -38,7 +47,8 @@ public class ImageResizer {
      * @param height height of new image
      * @throws IOException
      */
-    private static void resizeImage(BufferedImage originalImage, String outputPath, int width, int height, int percentage) throws IOException {
+    private static String resizeImage(BufferedImage originalImage, String outputPath, String outputName, int width, int height, int percentage)
+            throws IOException {
         BufferedImage resizedImage = new BufferedImage(width, height, originalImage.getType());
 
         Graphics2D g = resizedImage.createGraphics();
@@ -49,8 +59,16 @@ public class ImageResizer {
 
         g.drawImage(originalImage, 0, 0, width, height, null);
 
-        ImageIO.write(resizedImage, "png", new File(outputPath + percentage + ".png"));
+        File outFile;
+        if(outputPath.charAt(outputPath.length()-1) == '/') {
+            outFile = new File(outputPath + outputName + ".png");
+        } else {
+            outFile = new File(outputPath + File.separator + outputName + ".png");
+        }
+        ImageIO.write(resizedImage, "png", outFile);
 
         g.dispose();
+
+        return outFile.getPath();
     }
 }

@@ -38,6 +38,6 @@ CREATE TABLE image (
 	column_count INTEGER NOT NULL,
 	row_count INTEGER NOT NULL,
 	C_id INTEGER REFERENCES condition(id),
-	PRIMARY KEY (resolution, C_id)
+	PRIMARY KEY (C_id, resolution)
 );
 

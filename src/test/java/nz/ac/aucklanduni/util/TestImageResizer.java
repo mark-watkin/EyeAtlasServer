@@ -44,7 +44,7 @@ public class TestImageResizer {
 
     @Test
     public void testResizeImage() throws Exception {
-        ImageResizer.resizeImage(inputPath + inputFileName, outputPath, 50);
+        ImageResizer.resizeImage(inputPath + inputFileName, outputPath, String.valueOf(50), 50);
 
         File file = new File(inputPath + inputFileName);
         FileInputStream fis = new FileInputStream(file);

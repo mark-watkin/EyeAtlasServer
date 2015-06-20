@@ -99,8 +99,8 @@ public class ConditionController {
 
         if (result != null) {
             try {
-                ImageProcessor.uploadImage(condition.getId().toString(), conditionUpload.getImage());
-            } catch (IOException e) {
+                ImageProcessor.process(condition.getId().toString(), conditionUpload.getImage());
+            } catch (Exception e) {
                 e.printStackTrace();
                 conditionService.delete(result);
                 return "Condition creation was UNSUCCESSFUL!";

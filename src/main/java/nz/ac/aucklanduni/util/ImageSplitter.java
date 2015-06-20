@@ -15,14 +15,16 @@ public class ImageSplitter {
      *
      * @param inputFilePath
      * @param outputPath
-     * @param tileWidth
-     * @param tileHeight
+     * @param dimension
      * @throws java.io.IOException
      */
-    public static void splitImageBySize(String inputFilePath, String outputPath, int tileWidth, int tileHeight) throws IOException {
+    public static Dimension2D splitImageBySize(String inputFilePath, String outputPath, Dimension2D dimension) throws IOException {
         File file = new File(inputFilePath);
         FileInputStream fis = new FileInputStream(file);
         BufferedImage image = ImageIO.read(fis); //reading the image file
+
+        int tileWidth = dimension.getHorizontal();
+        int tileHeight = dimension.getVertical();
 
         int rows = (int)(Math.ceil((float)image.getHeight() / tileHeight));
         int cols = (int)(Math.ceil((float)image.getWidth() / tileWidth));
@@ -64,9 +66,17 @@ public class ImageSplitter {
         //writing mini images into image files
         for (int x = 0; x < rows; x++) {
             for (int y = 0; y < cols; y++) {
-                ImageIO.write(imgs[x * cols + y], "png", new File(outputPath + "img_" + y + "_" + x + ".png"));
+                File outFile;
+                if(outputPath.charAt(outputPath.length()-1) == '/') {
+                    outFile = new File(outputPath + "img_" + y + "_" + x + ".png");
+                } else {
+                    outFile = new File(outputPath + File.separator + "img_" + y + "_" + x + ".png");
+                }
+                ImageIO.write(imgs[x * cols + y], "png", outFile);
             }
         }
+
+        return new Dimension2D(cols, rows);
     }
 
     /**

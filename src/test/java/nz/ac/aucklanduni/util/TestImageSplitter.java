@@ -46,7 +46,7 @@ public class TestImageSplitter {
     public void testSplitImageBySize() throws Exception {
 
         System.out.println(System.getProperty("user.dir"));
-        ImageSplitter.splitImageBySize(inputPath + inputFileName, outputPath, 150, 150);
+        ImageSplitter.splitImageBySize(inputPath + inputFileName, outputPath, new Dimension2D(150, 150));
 
         assertThat(FileUtils.contentEquals(new File(expectedPath + "img_0_3.png"), new File(outputPath + "img_0_3.png")), is(true));
         assertThat(FileUtils.contentEquals(new File(expectedPath + "img_2_1.png"), new File(outputPath + "img_2_1.png")), is(true));
