@@ -21,12 +21,12 @@ public class ConditionDaoImpl implements ConditionDao {
 
     @Override
     public List<Condition> findAllConditions() {
-        return sessionFactory.getCurrentSession().createQuery("from Condition i").list();
+        return sessionFactory.getCurrentSession().createQuery("from Condition c order by c.title").list();
     }
 
     @Override
     public List<Condition> findAllConditions(int startIndex, int endIndex) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from Condition i");
+        Query query = sessionFactory.getCurrentSession().createQuery("from Condition c");
         query.setFirstResult(startIndex);
         query.setMaxResults(endIndex - startIndex);
         return query.list();
@@ -34,16 +34,37 @@ public class ConditionDaoImpl implements ConditionDao {
 
     @Override
     public Long getAllConditionsCount() {
-        return (Long)sessionFactory.getCurrentSession().createQuery("select count(i) from Condition i").uniqueResult();
+        return (Long)sessionFactory.getCurrentSession().createQuery("select count(c) from Condition c").uniqueResult();
     }
 
     @Override
-    public List<Condition> findCategoryConditions(String title, int startIndex, int endIndex) {
-        return null;
+    public List<Condition> findCategoryConditions(String categoryId) {
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("from Condition c where category = :categoryId")
+                .setString("categoryId", categoryId);
+        return query.list();
     }
 
     @Override
-    public Long getCategoryConditionsCount(String title) {
+    public List<Condition> findCategoryConditions(String categoryId, int startIndex, int endIndex) {
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("from Condition c where category = :categoryId")
+                .setString("categoryId", categoryId);
+        query.setFirstResult(startIndex);
+        query.setMaxResults(endIndex - startIndex);
+        return query.list();
+    }
+
+    @Override
+    public Long getCategoryConditionsCount(String categoryId) {
+        return (Long)sessionFactory.getCurrentSession()
+                .createQuery("select count(c) from Condition c where category = :categoryId")
+                .setString("categoryId", categoryId)
+                .uniqueResult();
+    }
+
+    @Override
+    public List<Condition> findSearchConditions(String term) {
         return null;
     }
 
@@ -68,7 +89,7 @@ public class ConditionDaoImpl implements ConditionDao {
 
     @Override
     public void save(Condition condition) {
-        this.sessionFactory.getCurrentSession().save(condition);
+        this.sessionFactory.getCurrentSession().saveOrUpdate(condition);
     }
 
     @Override

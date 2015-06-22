@@ -48,19 +48,31 @@ public class ConditionController {
     }
 
     // Get Request for Category
-    @RequestMapping(value = "/rest/condition/category/{title}/{startIndex}/{endIndex}", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/condition/category/{categoryId}", method = RequestMethod.GET)
     public @ResponseBody
-    List<Condition> getCategoryConditions(@PathVariable("title") String title, @PathVariable("startIndex") int startIndex,@PathVariable("endIndex") int endIndex) {
-        return conditionService.findCategoryConditions(title, startIndex, endIndex);
+    List<Condition> getCategoryConditions(@PathVariable("categoryId") String categoryId) {
+        return conditionService.findCategoryConditions(categoryId);
     }
 
-    @RequestMapping(value = "/rest/condition/category/{title}/count", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/condition/category/{categoryId}/{startIndex}/{endIndex}", method = RequestMethod.GET)
     public @ResponseBody
-    Long getCategoryConditionCount(@PathVariable("title") String title) {
-        return conditionService.getCategoryConditionsCount(title);
+    List<Condition> getCategoryConditions(@PathVariable("categoryId") String categoryId, @PathVariable("startIndex") int startIndex,@PathVariable("endIndex") int endIndex) {
+        return conditionService.findCategoryConditions(categoryId, startIndex, endIndex);
+    }
+
+    @RequestMapping(value = "/rest/condition/category/{categoryId}/count", method = RequestMethod.GET)
+    public @ResponseBody
+    Long getCategoryConditionCount(@PathVariable("categoryId") String categoryId) {
+        return conditionService.getCategoryConditionsCount(categoryId);
     }
 
     // Get Request for Search term
+    @RequestMapping(value = "/rest/condition/search/{term}", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Condition> getSearchConditions(@PathVariable("term") String term) {
+        return conditionService.findSearchConditions(term);
+    }
+
     @RequestMapping(value = "/rest/condition/search/{term}/{startIndex}/{endIndex}", method = RequestMethod.GET)
     public @ResponseBody
     List<Condition> getSearchConditions(@PathVariable("term") String term, @PathVariable("startIndex") int startIndex,@PathVariable("endIndex") int endIndex) {

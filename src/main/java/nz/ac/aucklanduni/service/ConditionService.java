@@ -14,9 +14,13 @@ public interface ConditionService {
 
     public Long getAllConditionsCount();
 
-    public List<Condition> findCategoryConditions(String title, int startIndex, int endIndex);
+    public List<Condition> findCategoryConditions(String categoryId);
 
-    public Long getCategoryConditionsCount(String title);
+    public List<Condition> findCategoryConditions(String categoryId, int startIndex, int endIndex);
+
+    public Long getCategoryConditionsCount(String categoryId);
+
+    public List<Condition> findSearchConditions(String term);
 
     public List<Condition> findSearchConditions(String term, int startIndex, int endIndex);
 

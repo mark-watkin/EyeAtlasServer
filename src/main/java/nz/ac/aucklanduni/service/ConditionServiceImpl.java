@@ -51,14 +51,26 @@ public class ConditionServiceImpl implements ConditionService {
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
-    public List<Condition> findCategoryConditions(String title, int startIndex, int endIndex) {
-        return this.conditionDao.findCategoryConditions(title, startIndex, endIndex);
+    public List<Condition> findCategoryConditions(String categoryId) {
+        return this.conditionDao.findCategoryConditions(categoryId);
     }
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
-    public Long getCategoryConditionsCount(String title) {
-        return this.conditionDao.getCategoryConditionsCount(title);
+    public List<Condition> findCategoryConditions(String categoryId, int startIndex, int endIndex) {
+        return this.conditionDao.findCategoryConditions(categoryId, startIndex, endIndex);
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public Long getCategoryConditionsCount(String categoryId) {
+        return this.conditionDao.getCategoryConditionsCount(categoryId);
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
+    public List<Condition> findSearchConditions(String term) {
+        return this.conditionDao.findSearchConditions(term);
     }
 
     @Override
