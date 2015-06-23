@@ -68,11 +68,11 @@ public class ImageSplitter {
             for (int y = 0; y < cols; y++) {
                 File outFile;
                 if(outputPath.charAt(outputPath.length()-1) == '/') {
-                    outFile = new File(outputPath + "img_" + y + "_" + x + ".png");
+                    outFile = new File(outputPath + "img_" + y + "_" + x + ".jpg");
                 } else {
-                    outFile = new File(outputPath + File.separator + "img_" + y + "_" + x + ".png");
+                    outFile = new File(outputPath + File.separator + "img_" + y + "_" + x + ".jpg");
                 }
-                ImageIO.write(imgs[x * cols + y], "png", outFile);
+                ImageIO.write(imgs[x * cols + y], "jpg", outFile);
             }
         }
 

@@ -61,11 +61,11 @@ public class ImageResizer {
 
         File outFile;
         if(outputPath.charAt(outputPath.length()-1) == '/') {
-            outFile = new File(outputPath + outputName + ".png");
+            outFile = new File(outputPath + outputName + ".jpg");
         } else {
-            outFile = new File(outputPath + File.separator + outputName + ".png");
+            outFile = new File(outputPath + File.separator + outputName + ".jpg");
         }
-        ImageIO.write(resizedImage, "png", outFile);
+        ImageIO.write(resizedImage, "jpg", outFile);
 
         g.dispose();
 

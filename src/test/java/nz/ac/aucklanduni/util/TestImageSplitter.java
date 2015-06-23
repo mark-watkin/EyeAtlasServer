@@ -48,9 +48,9 @@ public class TestImageSplitter {
         System.out.println(System.getProperty("user.dir"));
         ImageSplitter.splitImageBySize(inputPath + inputFileName, outputPath, new Dimension2D(150, 150));
 
-        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_0_3.png"), new File(outputPath + "img_0_3.png")), is(true));
-        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_2_1.png"), new File(outputPath + "img_2_1.png")), is(true));
-        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_3_1.png"), new File(outputPath + "img_3_1.png")), is(true));
-        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_4_2.png"), new File(outputPath + "img_4_2.png")), is(true));
+        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_0_3.jpg"), new File(outputPath + "img_0_3.jpg")), is(true));
+        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_2_1.jpg"), new File(outputPath + "img_2_1.jpg")), is(true));
+        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_3_1.jpg"), new File(outputPath + "img_3_1.jpg")), is(true));
+        assertThat(FileUtils.contentEquals(new File(expectedPath + "img_4_2.jpg"), new File(outputPath + "img_4_2.jpg")), is(true));
     }
 }

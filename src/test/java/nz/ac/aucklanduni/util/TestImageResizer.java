@@ -50,7 +50,7 @@ public class TestImageResizer {
         FileInputStream fis = new FileInputStream(file);
         BufferedImage originalImage = ImageIO.read(fis); //reading the image file
 
-        file = new File(outputPath + "50.png");
+        file = new File(outputPath + "50.jpg");
         fis = new FileInputStream(file);
         BufferedImage expectedImage = ImageIO.read(fis); //reading the image file
 

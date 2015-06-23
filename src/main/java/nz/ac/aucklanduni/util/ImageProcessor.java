@@ -28,8 +28,8 @@ public class ImageProcessor {
         BufferedImage bi = ImageIO.read(new ByteArrayInputStream(byteArray));
 
 
-        File img = new File(fileName + ".png");
-        ImageIO.write(bi, "png", img);
+        File img = new File(fileName + ".jpg");
+        ImageIO.write(bi, "jpg", img);
         return img.getPath();
     }
 
@@ -62,7 +62,7 @@ public class ImageProcessor {
             List<Callable<Void>> tasks = new ArrayList<Callable<Void>>();
 
             ImageProcessTask task;
-            task = new ImageProcessTask(imgFilePath, mainPath, "thumbnail").setResizePercent(20).enableSplit(false);
+            task = new ImageProcessTask(imgFilePath, mainPath, "thumbnail").setResizePercent(10).enableSplit(false);
             tasks.add(task);
             task = new ImageProcessTask(imgFilePath, mainPath, "preview").setResizePercent(25).enableSplit(false);
             tasks.add(task);
@@ -135,7 +135,7 @@ class ImageProcessTask implements Callable<Void> {
     String fileName;
     String imagePath;
     Integer percentage = 20;
-    Dimension2D dimension = new Dimension2D(256, 256);
+    Dimension2D dimension = new Dimension2D(1200, 1200);
     boolean split = true;
 
     public ImageProcessTask(String imagePath, String rootFolder, String fileName) {
