@@ -15,8 +15,9 @@ CREATE TABLE category (
 );
 
 CREATE TABLE tag (
+  id SERIAL UNIQUE NOT NULL,
 	name VARCHAR(100) UNIQUE NOT NULL,
-	PRIMARY KEY (name)
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE condition (
@@ -29,7 +30,7 @@ CREATE TABLE condition (
 
 CREATE TABLE condition_tag (
 	C_id INTEGER REFERENCES condition(id),
-	T_id VARCHAR(100) REFERENCES tag(name),
+	T_id INTEGER REFERENCES tag(id),
 	PRIMARY KEY (C_id, T_id)
 );
 
