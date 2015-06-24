@@ -2,11 +2,6 @@ package nz.ac.aucklanduni.service;
 
 import nz.ac.aucklanduni.dao.ConditionDao;
 import nz.ac.aucklanduni.model.Condition;
-import nz.ac.aucklanduni.model.Tag;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.search.FullTextSession;
-import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,6 +14,7 @@ public class ConditionServiceImpl implements ConditionService {
 
     @Autowired
     private ConditionDao conditionDao;
+
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
@@ -37,7 +33,7 @@ public class ConditionServiceImpl implements ConditionService {
     @Override
     @Transactional(propagation= Propagation.REQUIRED)
     public void buildSearchIndex() {
-        conditionDao.buildSearchIndex();
+        this.conditionDao.buildSearchIndex();
     }
 
     @Override

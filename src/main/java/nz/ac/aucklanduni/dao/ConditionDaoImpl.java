@@ -2,13 +2,14 @@ package nz.ac.aucklanduni.dao;
 
 import nz.ac.aucklanduni.model.Condition;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.hibernate.search.exception.EmptyQueryException;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -18,16 +19,18 @@ import java.util.List;
 @Repository("ConditionDao")
 public class ConditionDaoImpl implements ConditionDao {
 
+    @Autowired
     private SessionFactory sessionFactory;
 
     @Resource
-    public void setSessionFactory( SessionFactory sessionFactory ) {
+    public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
     @Override
     public void buildSearchIndex() {
-        FullTextSession fullTextSession = Search.getFullTextSession(sessionFactory.getCurrentSession());
+        Session session = this.sessionFactory.getCurrentSession();
+        FullTextSession fullTextSession = Search.getFullTextSession(session);
         try {
             fullTextSession.createIndexer().startAndWait();
         } catch (InterruptedException e) {

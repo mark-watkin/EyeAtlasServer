@@ -7,11 +7,10 @@ import nz.ac.aucklanduni.service.CategoryService;
 import nz.ac.aucklanduni.service.ConditionService;
 import nz.ac.aucklanduni.service.TagService;
 import nz.ac.aucklanduni.util.ImageProcessor;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import javax.annotation.PostConstruct;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +26,13 @@ public class ConditionController {
 
     @Autowired
     private TagService tagService;
+
+    @PostConstruct
+    private void init() {
+
+        // Rebuild search index in RAMDirectory
+        conditionService.buildSearchIndex();
+    }
 
     // Get Request for ALL
     @RequestMapping(value = "/rest/condition/all", method = RequestMethod.GET)
