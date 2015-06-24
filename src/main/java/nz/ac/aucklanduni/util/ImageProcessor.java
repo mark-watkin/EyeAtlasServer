@@ -41,40 +41,14 @@ public class ImageProcessor {
             mainPath = createFolder(ROOT_FOLDER + keyName);
             String imgFilePath = writeImageToTempStorage(mainPath + File.separator + keyName, image);
 
-//            // TODO Resize image & Split image
-
             // Sequential
-//            String subFolder = createFolder(mainPath + File.separator + "125");
-//            ImageResizer.resizeImage(originalImage, subFolder, 25);
-//
-//            subFolder = createFolder(mainPath + File.separator + "250");
-//            ImageResizer.resizeImage(originalImage, subFolder, 50);
-//
-//            subFolder = createFolder(mainPath + File.separator + "500");
-//            ImageResizer.resizeImage(originalImage, subFolder, 75);
-//
-//            subFolder = createFolder(mainPath + File.separator + "1000");
-//            ImageResizer.resizeImage(originalImage, subFolder, 100);
+            processImage(imgFilePath, mainPath, "thumbnail", false, 10, null);
+            processImage(imgFilePath, mainPath, "preview", false, 25, null);
+            processImage(imgFilePath, mainPath, "125", true, 25, null);
+            processImage(imgFilePath, mainPath, "250", false, 50, null);
+            processImage(imgFilePath, mainPath, "500", false, 75, null);
+            processImage(imgFilePath, mainPath, "1000", false, 100, null);
 
-
-            // Parallel
-            ExecutorService EXEC = Executors.newCachedThreadPool();
-            List<Callable<Void>> tasks = new ArrayList<Callable<Void>>();
-
-            ImageProcessTask task;
-            task = new ImageProcessTask(imgFilePath, mainPath, "thumbnail").setResizePercent(10).enableSplit(false);
-            tasks.add(task);
-            task = new ImageProcessTask(imgFilePath, mainPath, "preview").setResizePercent(25).enableSplit(false);
-            tasks.add(task);
-            task = new ImageProcessTask(imgFilePath, mainPath, "125").setResizePercent(25);
-            tasks.add(task);
-            task = new ImageProcessTask(imgFilePath, mainPath, "250").setResizePercent(50);
-            tasks.add(task);
-            task = new ImageProcessTask(imgFilePath, mainPath, "500").setResizePercent(75);
-            tasks.add(task);
-            task = new ImageProcessTask(imgFilePath, mainPath, "1000").setResizePercent(100);
-            tasks.add(task);
-            EXEC.invokeAll(tasks);
 
             // Upload whole image dir to S3
             S3ImageAdapter.uploadDirectory(mainPath, keyName);
@@ -127,42 +101,15 @@ public class ImageProcessor {
         return outdir.getPath();
 
     }
-}
 
-class ImageProcessTask implements Callable<Void> {
+    private static void processImage(String imagePath, String mainFolderPath, String fileName, boolean split,
+                              int percentage, Dimension2D dimension) throws IOException {
 
-    String folderPath;
-    String fileName;
-    String imagePath;
-    Integer percentage = 20;
-    Dimension2D dimension = new Dimension2D(2000, 2000);
-    boolean split = true;
+        if (dimension == null) {
+            dimension = new Dimension2D(2000, 2000);
+        }
 
-    public ImageProcessTask(String imagePath, String rootFolder, String fileName) {
-        this.folderPath = rootFolder;
-        this.imagePath = imagePath;
-        this.fileName = fileName;
-    }
-
-    public ImageProcessTask setResizePercent(Integer percentage) {
-        this.percentage = percentage;
-        return this;
-    }
-
-    public ImageProcessTask setSplitDimension(Dimension2D dimension) {
-        this.dimension = dimension;
-        return this;
-    }
-
-    public ImageProcessTask enableSplit(boolean split) {
-        this.split = split;
-        return this;
-    }
-
-    @Override
-    public Void call() throws Exception {
-
-        String subFolder = ImageProcessor.createFolder(folderPath + File.separator + fileName);
+        String subFolder = ImageProcessor.createFolder(mainFolderPath + File.separator + fileName);
         try {
             System.out.println("" + fileName + " START");
             String resizedImagePath = ImageResizer.resizeImage(imagePath, subFolder, fileName, percentage);
@@ -181,7 +128,6 @@ class ImageProcessTask implements Callable<Void> {
             e.printStackTrace();
             throw e;
         }
-
-        return null;
     }
+
 }

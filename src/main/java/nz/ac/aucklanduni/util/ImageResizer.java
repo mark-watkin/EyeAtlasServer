@@ -26,7 +26,7 @@ public class ImageResizer {
         final int IMG_WIDTH = originalImage.getWidth() * percentage / 100;
         final int IMG_HEIGHT = originalImage.getHeight() * percentage / 100;
 
-        return resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT, percentage);
+        return resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT);
 
     }
 
@@ -35,7 +35,7 @@ public class ImageResizer {
         final int IMG_WIDTH = originalImage.getWidth() * percentage / 100;
         final int IMG_HEIGHT = originalImage.getHeight() * percentage / 100;
 
-        return resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT, percentage);
+        return resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT);
 
     }
 
@@ -47,7 +47,7 @@ public class ImageResizer {
      * @param height height of new image
      * @throws IOException
      */
-    private static String resizeImage(BufferedImage originalImage, String outputPath, String outputName, int width, int height, int percentage)
+    private static String resizeImage(BufferedImage originalImage, String outputPath, String outputName, int width, int height)
             throws IOException {
         BufferedImage resizedImage = new BufferedImage(width, height, originalImage.getType());
 
