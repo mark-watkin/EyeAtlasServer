@@ -45,10 +45,9 @@ public class ImageProcessor {
             processImage(imgFilePath, mainPath, "thumbnail", false, 10, null);
             processImage(imgFilePath, mainPath, "preview", false, 25, null);
             processImage(imgFilePath, mainPath, "125", true, 25, null);
-            processImage(imgFilePath, mainPath, "250", false, 50, null);
-            processImage(imgFilePath, mainPath, "500", false, 75, null);
-            processImage(imgFilePath, mainPath, "1000", false, 100, null);
-
+            processImage(imgFilePath, mainPath, "250", true, 50, null);
+            processImage(imgFilePath, mainPath, "500", true, 75, null);
+            processImage(imgFilePath, mainPath, "1000", true, 100, null);
 
             // Upload whole image dir to S3
             S3ImageAdapter.uploadDirectory(mainPath, keyName);
@@ -105,24 +104,26 @@ public class ImageProcessor {
     private static void processImage(String imagePath, String mainFolderPath, String fileName, boolean split,
                               int percentage, Dimension2D dimension) throws IOException {
 
-        if (dimension == null) {
-            dimension = new Dimension2D(2000, 2000);
+        Dimension2D tileDimension = new Dimension2D(2000, 2000);
+
+        if (dimension != null) {
+            tileDimension = dimension;
         }
 
         String subFolder = ImageProcessor.createFolder(mainFolderPath + File.separator + fileName);
         try {
-            System.out.println("" + fileName + " START");
+            System.out.println(fileName + " START");
             String resizedImagePath = ImageResizer.resizeImage(imagePath, subFolder, fileName, percentage);
 
             if(split) {
-                ImageSplitter.splitImageBySize(resizedImagePath, subFolder, dimension);
+                ImageSplitter.splitImageBySize(resizedImagePath, subFolder, tileDimension);
 
                 // Delete the non splitted file
                 File file = new File(resizedImagePath);
                 file.delete();
             }
 
-            System.out.println("" + fileName + " DONE");
+            System.out.println(fileName + " DONE");
 
         } catch (IOException e) {
             e.printStackTrace();

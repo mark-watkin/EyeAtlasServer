@@ -76,6 +76,8 @@ public class ImageSplitter {
             }
         }
 
+        fis.close();
+
         return new Dimension2D(cols, rows);
     }
 

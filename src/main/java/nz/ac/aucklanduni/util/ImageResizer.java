@@ -26,7 +26,9 @@ public class ImageResizer {
         final int IMG_WIDTH = originalImage.getWidth() * percentage / 100;
         final int IMG_HEIGHT = originalImage.getHeight() * percentage / 100;
 
-        return resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT);
+        String result = resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT);
+        fis.close();
+        return result;
 
     }
 
@@ -35,8 +37,8 @@ public class ImageResizer {
         final int IMG_WIDTH = originalImage.getWidth() * percentage / 100;
         final int IMG_HEIGHT = originalImage.getHeight() * percentage / 100;
 
-        return resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT);
-
+        String result = resizeImage(originalImage, outputPath, outputName, IMG_WIDTH, IMG_HEIGHT);
+        return result;
     }
 
     /**
