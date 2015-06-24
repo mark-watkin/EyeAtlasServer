@@ -4,17 +4,10 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class ImageProcessor {
 
@@ -36,18 +29,17 @@ public class ImageProcessor {
     public static void process(String keyName, String image) throws IOException, InterruptedException {
 
         String mainPath = null;
-
         try {
             mainPath = createFolder(ROOT_FOLDER + keyName);
-            String imgFilePath = writeImageToTempStorage(mainPath + File.separator + keyName, image);
+            String imgPath = writeImageToTempStorage(mainPath + File.separator + keyName, image);
 
             // Sequential
-            processImage(imgFilePath, mainPath, "thumbnail", false, 10, null);
-            processImage(imgFilePath, mainPath, "preview", false, 25, null);
-            processImage(imgFilePath, mainPath, "125", true, 25, null);
-            processImage(imgFilePath, mainPath, "250", true, 50, null);
-            processImage(imgFilePath, mainPath, "500", true, 75, null);
-            processImage(imgFilePath, mainPath, "1000", true, 100, null);
+            processImage(imgPath, mainPath, "thumbnail", false, 10, null);
+            processImage(imgPath, mainPath, "preview", false, 25, null);
+            processImage(imgPath, mainPath, "125", true, 25, null);
+            processImage(imgPath, mainPath, "250", true, 50, null);
+            processImage(imgPath, mainPath, "500", true, 75, null);
+            processImage(imgPath, mainPath, "1000", true, 100, null);
 
             // Upload whole image dir to S3
             S3ImageAdapter.uploadDirectory(mainPath, keyName);
@@ -63,7 +55,6 @@ public class ImageProcessor {
         finally {
             cleanUpTmpStorage(mainPath);
         }
-
     }
 
     public static void deleteImage(String keyName) {
@@ -111,10 +102,10 @@ public class ImageProcessor {
         }
 
         String subFolder = ImageProcessor.createFolder(mainFolderPath + File.separator + fileName);
+
         try {
             System.out.println(fileName + " START");
             String resizedImagePath = ImageResizer.resizeImage(imagePath, subFolder, fileName, percentage);
-
             if(split) {
                 ImageSplitter.splitImageBySize(resizedImagePath, subFolder, tileDimension);
 
@@ -122,13 +113,10 @@ public class ImageProcessor {
                 File file = new File(resizedImagePath);
                 file.delete();
             }
-
             System.out.println(fileName + " DONE");
-
         } catch (IOException e) {
             e.printStackTrace();
             throw e;
         }
     }
-
 }

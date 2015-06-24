@@ -2,6 +2,8 @@ $(document).ready(function () {
     var getValues,
         base64;
 
+    var imgWidth, imgHeight;
+
     base64 = function (input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -44,11 +46,24 @@ $(document).ready(function () {
     });
 
     $('#upload-button').click(function () {
+
+        var screenImage = $("#prev");
+
+        // Create new offscreen image to test
+        var theImage = new Image();
+        theImage.src = screenImage.attr("src");
+
+        // Get accurate measurements from that.
+        var imageWidth = theImage.width;
+        var imageHeight = theImage.height;
+
         var conditionUpload = {
 
             condition: {
                 title: $('#upload-form .entity-name').val(),
-                description: $('#upload-form .entity-description').val()
+                description: $('#upload-form .entity-description').val(),
+                imageWidth: imageWidth,
+                imageHeight: imageHeight
             },
 
             category: $("input[type='radio'][name='category']:checked").val(),
@@ -79,22 +94,23 @@ $(document).ready(function () {
     });
 
     $('#delete-button').click(function () {
-            var category = {
-                name: $('#delete-form .condition-name').val()
-            };
+        var category = {
+            name: $('#delete-form .condition-name').val()
+        };
 
-            $.ajax({
-                url: '/rest/condition/' + category.name,
-                type: 'delete',
-                success: function (data) {
-                    alert(data);
-                },
-                error: function(data) {
-                    alert(data);
-                }
-            });
-
-            name: $('#delete-form .condition-name').val("");
+        $.ajax({
+            url: '/rest/condition/' + category.name,
+            type: 'delete',
+            success: function (data) {
+                alert(data);
+            },
+            error: function(data) {
+                alert(data);
+            }
         });
+
+        name: $('#delete-form .condition-name').val("");
+    });
+
 });
 

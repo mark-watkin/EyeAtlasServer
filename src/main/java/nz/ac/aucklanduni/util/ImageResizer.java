@@ -1,11 +1,14 @@
 package nz.ac.aucklanduni.util;
 
+import org.apache.commons.io.FileUtils;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class ImageResizer {
 
@@ -18,6 +21,21 @@ public class ImageResizer {
      * @throws IOException
      */
     public static String resizeImage(String inputFilePath, String outputPath, String outputName, int percentage) throws IOException {
+
+        if (percentage == 100) {
+            String outputFilePath;
+            if(outputPath.charAt(outputPath.length()-1) == '/') {
+                outputFilePath = outputPath + outputName + ".jpg";
+            } else {
+                outputFilePath = outputPath + File.separator + outputName + ".jpg";
+            }
+
+            File inputFile = new File(inputFilePath);
+            File outputFile = new File(outputFilePath);
+
+            FileUtils.copyFile(inputFile, outputFile);
+            return outputFile.getPath();
+        }
 
         File file = new File(inputFilePath);
         FileInputStream fis = new FileInputStream(file);

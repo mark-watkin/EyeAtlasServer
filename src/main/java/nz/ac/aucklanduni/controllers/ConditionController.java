@@ -86,8 +86,10 @@ public class ConditionController {
         // Value checks
         if (conditionUpload.getCondition().getTitle() == null || conditionUpload.getCondition().getTitle().equals("")) {
             return "The Condition must have a title!";
-        }else if (conditionUpload.getCategory() == null || conditionUpload.getCategory().equals("")) {
+        } else if (conditionUpload.getCategory() == null || conditionUpload.getCategory().equals("")) {
             return "The Condition must have a category!";
+        } else if (conditionUpload.getCondition().getImageWidth() == null || conditionUpload.getCondition().getImageHeight() == null) {
+            return "The Condition must have an image width or image height!";
         }
 
         Condition condition = conditionUpload.getCondition();

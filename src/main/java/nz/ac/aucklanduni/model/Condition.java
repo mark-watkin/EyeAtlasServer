@@ -32,6 +32,10 @@ public class Condition {
     @IndexedEmbedded
     private Set<Tag> tags = new HashSet<Tag>();
 
+    private Integer imageWidth;
+
+    private Integer imageHeight;
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
@@ -82,5 +86,23 @@ public class Condition {
     public String toString() {
         return "{ id: " + id + ", title: " + title + ", desc :" + description + ", category :" + category
                 + ", tags :" + tags + " }";
+    }
+
+    @Column(name = "img_res_width")
+    public Integer getImageWidth() {
+        return imageWidth;
+    }
+
+    public void setImageWidth(Integer imageWidth) {
+        this.imageWidth = imageWidth;
+    }
+
+    @Column(name = "img_res_height")
+    public Integer getImageHeight() {
+        return imageHeight;
+    }
+
+    public void setImageHeight(Integer imageHeight) {
+        this.imageHeight = imageHeight;
     }
 }

@@ -25,6 +25,8 @@ CREATE TABLE condition (
 	title VARCHAR(100) NOT NULL,
 	description VARCHAR(500) NOT NULL,
 	category VARCHAR(100) REFERENCES category(id),
+	img_res_width INTEGER NOT NULL,
+	img_res_height INTEGER NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -32,13 +34,5 @@ CREATE TABLE condition_tag (
 	C_id INTEGER REFERENCES condition(id),
 	T_id INTEGER REFERENCES tag(id),
 	PRIMARY KEY (C_id, T_id)
-);
-
-CREATE TABLE image (
-	resolution INTEGER NOT NULL,
-	column_count INTEGER NOT NULL,
-	row_count INTEGER NOT NULL,
-	C_id INTEGER REFERENCES condition(id),
-	PRIMARY KEY (C_id, resolution)
 );
 
