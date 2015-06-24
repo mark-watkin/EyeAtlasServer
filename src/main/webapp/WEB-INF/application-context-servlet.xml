@@ -65,8 +65,7 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
 
-                <prop key="hibernate.search.default.directory_provider">filesystem</prop>
-                <prop key="hibernate.search.default.indexBase">var/lucene/indexes</prop>
+                <prop key="hibernate.search.default.directory_provider">org.hibernate.search.store.impl.RAMDirectoryProvider</prop>
             </props>
         </property>
 
