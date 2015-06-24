@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface ConditionDao {
 
+    public void buildSearchIndex();
+
     public List<Condition> findAllConditions();
 
     public List<Condition> findAllConditions(int startIndex, int endIndex);
@@ -21,8 +23,6 @@ public interface ConditionDao {
     public List<Condition> findSearchConditions(String term);
 
     public List<Condition> findSearchConditions(String term, int startIndex, int endIndex);
-
-    public Long getSearchConditionsCount(String term);
 
     public Condition find(Integer id);
 

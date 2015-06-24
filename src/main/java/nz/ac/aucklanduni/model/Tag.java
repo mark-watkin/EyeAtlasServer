@@ -1,11 +1,15 @@
 package nz.ac.aucklanduni.model;
 
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "tag")
 public class Tag {
 
+    @DocumentId
     private String name;
 
     @Id

@@ -4,6 +4,9 @@ import nz.ac.aucklanduni.dao.ConditionDao;
 import nz.ac.aucklanduni.model.Condition;
 import nz.ac.aucklanduni.model.Tag;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -29,6 +32,12 @@ public class ConditionServiceImpl implements ConditionService {
         }
         return condition;
 
+    }
+
+    @Override
+    @Transactional(propagation= Propagation.REQUIRED)
+    public void buildSearchIndex() {
+        conditionDao.buildSearchIndex();
     }
 
     @Override
@@ -78,13 +87,6 @@ public class ConditionServiceImpl implements ConditionService {
     public List<Condition> findSearchConditions(String term, int startIndex, int endIndex) {
         return this.conditionDao.findSearchConditions(term, startIndex, endIndex);
     }
-
-    @Override
-    @Transactional(propagation= Propagation.REQUIRED, readOnly = true)
-    public Long getSearchConditionsCount(String term) {
-        return this.conditionDao.getSearchConditionsCount(term);
-    }
-
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED, readOnly = true)

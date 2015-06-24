@@ -79,13 +79,6 @@ public class ConditionController {
         return conditionService.findSearchConditions(term, startIndex, endIndex);
     }
 
-    @RequestMapping(value = "/rest/condition/search/{term}/count", method = RequestMethod.GET)
-    public @ResponseBody
-    Long getSearchConditionCount(@PathVariable("term") String term) {
-        return conditionService.getSearchConditionsCount(term);
-    }
-
-
     // Post Request for conditions
     @RequestMapping(value = "/rest/condition", method = RequestMethod.POST)
     public String conditionUpload(@RequestBody ConditionUpload conditionUpload) {

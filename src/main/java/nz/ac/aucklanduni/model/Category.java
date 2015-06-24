@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import static javax.persistence.CascadeType.*;
 
@@ -15,9 +17,14 @@ import static javax.persistence.CascadeType.*;
 public class Category {
 
     private String id;
+
+    @Field
     private String name;
+
     private String description;
+
     private Category parent;
+
     private List<Category> children = new ArrayList<Category>();
 
     @Id

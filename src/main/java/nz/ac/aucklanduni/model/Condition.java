@@ -1,6 +1,9 @@
 package nz.ac.aucklanduni.model;
 
 import org.hibernate.annotations.*;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
@@ -11,13 +14,22 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Indexed
 @Table(name = "condition")
 public class Condition {
 
     private Integer id;
+
+    @Field
     private String title;
+
+    @Field
     private String description;
+
+    @IndexedEmbedded
     private Category category;
+
+    @IndexedEmbedded
     private Set<Tag> tags = new HashSet<Tag>();
 
     @Id

@@ -8,6 +8,8 @@ public interface ConditionService {
 
     public Condition createCondition(Condition condition);
 
+    public void buildSearchIndex();
+
     public List<Condition> findAllConditions();
 
     public List<Condition> findAllConditions(int startIndex, int endIndex);
@@ -23,8 +25,6 @@ public interface ConditionService {
     public List<Condition> findSearchConditions(String term);
 
     public List<Condition> findSearchConditions(String term, int startIndex, int endIndex);
-
-    public Long getSearchConditionsCount(String term);
 
     public Condition find(Integer id);
 

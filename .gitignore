@@ -44,3 +44,4 @@ out/
 
 # Heroku tmp folder
 /tmp/
+var/
