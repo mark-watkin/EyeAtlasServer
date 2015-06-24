@@ -135,7 +135,7 @@ class ImageProcessTask implements Callable<Void> {
     String fileName;
     String imagePath;
     Integer percentage = 20;
-    Dimension2D dimension = new Dimension2D(1200, 1200);
+    Dimension2D dimension = new Dimension2D(2000, 2000);
     boolean split = true;
 
     public ImageProcessTask(String imagePath, String rootFolder, String fileName) {
