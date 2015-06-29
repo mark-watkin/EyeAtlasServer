@@ -64,15 +64,14 @@ public class S3ImageAdapter {
         MultipleFileUpload upload = transferManager.uploadDirectory(properties.getBucketName(), amazonFolderPath, dir, true);
         upload.waitForCompletion();
         transferManager.shutdownNow();
-
         System.out.println("S3: PUT DIR " + amazonFolderPath);
     }
 
-    public static void delete(String filePath) throws IOException {
+    public static void delete(String prefix) throws IOException {
         AmazonS3 s3Client = new AmazonS3Client(properties);
         s3Client.setRegion(Region.getRegion(Regions.AP_SOUTHEAST_2));
 
-        ObjectListing listing = s3Client.listObjects(properties.getBucketName(), filePath);
+        ObjectListing listing = s3Client.listObjects(properties.getBucketName(), prefix + "/");
         List<S3ObjectSummary> summaries = listing.getObjectSummaries();
 
         List<KeyVersion> keys = new ArrayList<KeyVersion>();
@@ -83,6 +82,6 @@ public class S3ImageAdapter {
         DeleteObjectsRequest deleteObjectsRequest = new DeleteObjectsRequest(properties.getBucketName());
         deleteObjectsRequest.setKeys(keys);
         s3Client.deleteObjects(deleteObjectsRequest);
-        System.out.println("S3: DELETE " + filePath);
+        System.out.println("S3: DELETED " + prefix);
     }
 }
