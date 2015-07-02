@@ -15,8 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class S3ImageAdapter {
 
@@ -67,21 +66,32 @@ public class S3ImageAdapter {
         System.out.println("S3: PUT DIR " + amazonFolderPath);
     }
 
-    public static void delete(String prefix) throws IOException {
-        AmazonS3 s3Client = new AmazonS3Client(properties);
+    public static void delete(final String prefix) throws IOException {
+        final AmazonS3 s3Client = new AmazonS3Client(properties);
         s3Client.setRegion(Region.getRegion(Regions.AP_SOUTHEAST_2));
 
         ObjectListing listing = s3Client.listObjects(properties.getBucketName(), prefix + "/");
         List<S3ObjectSummary> summaries = listing.getObjectSummaries();
 
-        List<KeyVersion> keys = new ArrayList<KeyVersion>();
+        final List<KeyVersion> keys = new ArrayList<KeyVersion>();
         for(S3ObjectSummary s : summaries) {
             keys.add(new KeyVersion(s.getKey()));
         }
 
-        DeleteObjectsRequest deleteObjectsRequest = new DeleteObjectsRequest(properties.getBucketName());
-        deleteObjectsRequest.setKeys(keys);
-        s3Client.deleteObjects(deleteObjectsRequest);
-        System.out.println("S3: DELETED " + prefix);
+        // Create a scheduled task that perform image removal in a specified delay
+        Timer timer = new Timer();
+        int delayInSeconds = 90 * 60;
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                DeleteObjectsRequest deleteObjectsRequest = new DeleteObjectsRequest(properties.getBucketName());
+                deleteObjectsRequest.setKeys(keys);
+                s3Client.deleteObjects(deleteObjectsRequest);
+                Date date = new Date();
+                System.out.println("S3: DELETED " + prefix + " on " + date.toString());
+            }
+        }, delayInSeconds * 1000);
+        System.out.println(prefix + " deletion has been scheduled in " + delayInSeconds + " seconds.");
     }
 }

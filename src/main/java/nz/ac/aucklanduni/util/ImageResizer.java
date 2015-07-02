@@ -12,6 +12,8 @@ import java.nio.file.StandardCopyOption;
 
 public class ImageResizer {
 
+    public static final int MINIMUM_FILE_SIZE_IN_BYTE = 200 * 1024; // 200 kB
+
     /**
      * Resize an image based on percentage.
      *
@@ -22,7 +24,14 @@ public class ImageResizer {
      */
     public static String resizeImage(String inputFilePath, String outputPath, String outputName, int percentage) throws IOException {
 
-        if (percentage == 100) {
+        // Open up the input file
+        File inputFile = new File(inputFilePath);
+
+
+
+        // If the image is not being re-sized (100% of original image), or if the image size is already small enough (200 kB),
+        // then simply copy the file
+        if (percentage == 100 || inputFile.length() <  MINIMUM_FILE_SIZE_IN_BYTE) {
             String outputFilePath;
             if(outputPath.charAt(outputPath.length()-1) == '/') {
                 outputFilePath = outputPath + outputName + ".jpg";
@@ -30,9 +39,7 @@ public class ImageResizer {
                 outputFilePath = outputPath + File.separator + outputName + ".jpg";
             }
 
-            File inputFile = new File(inputFilePath);
             File outputFile = new File(outputFilePath);
-
             FileUtils.copyFile(inputFile, outputFile);
             return outputFile.getPath();
         }

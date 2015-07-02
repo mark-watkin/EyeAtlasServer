@@ -43,7 +43,7 @@ public class TestImageResizer {
     }
 
     @Test
-    public void testResizeImage() throws Exception {
+    public void testResizeSmallImage() throws Exception {
         ImageResizer.resizeImage(inputPath + inputFileName, outputPath, String.valueOf(50), 50);
 
         File file = new File(inputPath + inputFileName);
@@ -54,10 +54,9 @@ public class TestImageResizer {
         fis = new FileInputStream(file);
         BufferedImage expectedImage = ImageIO.read(fis); //reading the image file
 
-        assertThat(originalImage.getWidth()/2, is(expectedImage.getWidth()));
-        assertThat(originalImage.getHeight()/2, is(expectedImage.getHeight()));
+        assertThat(originalImage.getWidth(), is(expectedImage.getWidth()));
+        assertThat(originalImage.getHeight(), is(expectedImage.getHeight()));
 
         fis.close();
     }
-
 }
