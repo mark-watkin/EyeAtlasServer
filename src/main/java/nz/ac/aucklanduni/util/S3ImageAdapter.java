@@ -80,7 +80,7 @@ public class S3ImageAdapter {
 
         // Create a scheduled task that perform image removal in a specified delay
         Timer timer = new Timer();
-        int delayInSeconds = 90 * 60;
+        int delayInSeconds = 20 * 60;
 
         timer.schedule(new TimerTask() {
             @Override

@@ -3,11 +3,7 @@ package nz.ac.aucklanduni.util;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class ImageProcessor {
 
@@ -18,11 +14,12 @@ public class ImageProcessor {
         String imageData = image.replaceFirst(IMAGE_HEADER,"");
         byte[] byteArray = Base64.decodeBase64(imageData);
 
-        BufferedImage bi = ImageIO.read(new ByteArrayInputStream(byteArray));
-
-
         File img = new File(fileName + ".jpg");
-        ImageIO.write(bi, "jpg", img);
+
+        OutputStream stream = new FileOutputStream(img);
+        stream.write(byteArray);
+        stream.close();
+
         return img.getPath();
     }
 
@@ -34,26 +31,26 @@ public class ImageProcessor {
             String imgPath = writeImageToTempStorage(mainPath + File.separator + keyName, image);
 
             // Sequential
-            processImage(imgPath, mainPath, "thumbnail", false, 10, null);
-            processImage(imgPath, mainPath, "preview", false, 25, null);
-            processImage(imgPath, mainPath, "125", true, 25, null);
-            processImage(imgPath, mainPath, "250", true, 50, null);
-            processImage(imgPath, mainPath, "500", true, 75, null);
-            processImage(imgPath, mainPath, "1000", true, 100, null);
+            processImage(imgPath, mainPath, "thumbnail", false, 10, null, 0.95f);
+            processImage(imgPath, mainPath, "preview", false, 25, null, 0.95f);
+            processImage(imgPath, mainPath, "250", true, 25, null, 1.0f);
+            processImage(imgPath, mainPath, "500", true, 50, null, 1.0f);
+            processImage(imgPath, mainPath, "750", true, 75, null, 1.0f);
+            processImage(imgPath, mainPath, "1000", true, 100, null, 1.0f);
 
             // Upload whole image dir to S3
-            S3ImageAdapter.uploadDirectory(mainPath, keyName);
+//            S3ImageAdapter.uploadDirectory(mainPath, keyName);
         }
         catch (IOException e) {
             e.printStackTrace();
             throw e;
         }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-            throw e;
-        }
+//        catch (InterruptedException e) {
+//            e.printStackTrace();
+//            throw e;
+//        }
         finally {
-            cleanUpTmpStorage(mainPath);
+//            cleanUpTmpStorage(mainPath);
         }
     }
 
@@ -93,9 +90,9 @@ public class ImageProcessor {
     }
 
     private static void processImage(String imagePath, String mainFolderPath, String fileName, boolean split,
-                              int percentage, Dimension2D dimension) throws IOException {
+                              int percentage, Dimension2D dimension, float quality) throws IOException {
 
-        Dimension2D tileDimension = new Dimension2D(2000, 2000);
+        Dimension2D tileDimension = new Dimension2D(512, 512);
 
         if (dimension != null) {
             tileDimension = dimension;
@@ -105,9 +102,9 @@ public class ImageProcessor {
 
         try {
             System.out.println(fileName + " START");
-            String resizedImagePath = ImageResizer.resizeImage(imagePath, subFolder, fileName, percentage);
+            String resizedImagePath = ImageResizer.resizeImage(imagePath, subFolder, fileName, percentage, quality);
             if(split) {
-                ImageSplitter.splitImageBySize(resizedImagePath, subFolder, tileDimension);
+                ImageSplitter.splitImageBySize(resizedImagePath, subFolder, tileDimension, quality);
 
                 // Delete the non splitted file
                 File file = new File(resizedImagePath);
