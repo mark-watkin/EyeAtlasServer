@@ -20,6 +20,7 @@ import java.util.*;
 public class SecurityKeyController {
 
     private static final String KEY = "GLOBAL_KEY";
+    private static final String IV = "GLOBAL_IV";
 
     private static int pswdIterations = 65536;
     private static int keySize = 128;
@@ -81,7 +82,8 @@ public class SecurityKeyController {
             cipher.init(Cipher.ENCRYPT_MODE, secret);
             AlgorithmParameters params = cipher.getParameters();
             ivBytes = params.getParameterSpec(IvParameterSpec.class).getIV();
-            encryptedKeyBytes = cipher.doFinal(KEY.getBytes("UTF-8"));
+            String combined = KEY + IV;
+            encryptedKeyBytes = cipher.doFinal(combined.getBytes("UTF-8"));
 
             return base64.encodeAsString(encryptedKeyBytes)
                     + "_" + base64.encodeAsString(seed.toString().getBytes("UTF-8"))
