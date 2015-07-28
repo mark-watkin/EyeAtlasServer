@@ -175,9 +175,9 @@
 
     <repositories>
         <repository>
-            <id>in-project</id>
-            <name>In Project Repo</name>
-            <url>file://${project.basedir}/src/libs</url>
+            <id>project.local</id>
+            <name>project repo</name>
+            <url>file:${project.basedir}/src/libs</url>
             <releases>
                 <enabled>true</enabled>
                 <checksumPolicy>ignore</checksumPolicy>
